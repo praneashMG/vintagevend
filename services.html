@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="/assets/vf.jpg" type="image/jpeg">    <link rel="icon" href="https://images.unsplash.com/photo-1560439514-4e96450399e6?w=64&h=64&fit=crop" type="image/jpeg">
+    <title>Vintage Vending | Restoration & Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =========================
+           THEME VARIABLES – VINTAGE RED
+        ========================= */
+        :root, html[data-theme='light'] {
+            --color-background: #FDF8F5;
+            --color-primary-text: #2C1810;
+            --color-secondary-text: #5A3A2A;
+            --color-accent: #C0392B;
+            --color-primary: #9B2C1D;
+            --color-secondary: #E67E22;
+            --color-border: #EAD7C3;
+            --color-hover: #FCE4D6;
+            --color-footer-bg: #2C1810;
+            --color-footer-text: #FDF2E9;
+            --color-card-bg: #FFFFFF;
+        }
+        html[data-theme='dark'] {
+            --color-background: #1E1410;
+            --color-primary-text: #FCE4D6;
+            --color-secondary-text: #EAD7C3;
+            --color-accent: #E74C3C;
+            --color-primary: #C0392B;
+            --color-secondary: #E67E22;
+            --color-border: #4A2A1A;
+            --color-hover: #3A2218;
+            --color-footer-bg: #0A0604;
+            --color-footer-text: #FCE4D6;
+            --color-card-bg: #2A1A12;
+        }
+        
+        html, body {
+            background: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+        
+        .text-primary-text { color: var(--color-primary-text); }
+        .text-secondary-text { color: var(--color-secondary-text); }
+        .text-accent { color: var(--color-accent); }
+        .text-primary { color: var(--color-primary); }
+        .text-secondary { color: var(--color-secondary); }
+        .bg-background { background-color: var(--color-background); }
+        .bg-hover { background-color: var(--color-hover); }
+        .border-border { border-color: var(--color-border); }
+        
+        /* =========================
+           NAVBAR
+        ========================= */
+        #main-header nav {
+            background: var(--color-card-bg);
+            border-radius: 9999px;
+            padding: 10px 25px;
+            margin: 0 auto;
+            max-width: 1200px;
+            box-shadow: 0 10px 25px rgba(156, 44, 29, 0.15);
+        }
+        
+        .header-accent { color: var(--color-primary); }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+        
+        /* Dropdowns */
+        .dropdown-wrapper { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 0.5rem;
+            box-shadow: 0 12px 30px rgba(156, 44, 29, 0.18);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: 0.25s ease;
+        }
+        .dropdown-wrapper.open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-wrapper.open svg { transform: rotate(180deg); transition: 0.25s; }
+        .dropdown-menu a, .dropdown-menu button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: var(--color-primary-text);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--color-border);
+            width: 100%;
+            background: none;
+            cursor: pointer;
+        }
+        .dropdown-menu a:last-child, .dropdown-menu button:last-child { border-bottom: none; }
+        .dropdown-menu a:hover, .dropdown-menu button:hover {
+            background-color: var(--color-hover);
+            color: var(--color-accent);
+            padding-left: 1.25rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .dropdown-menu {
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                display: none;
+                opacity: 0;
+                visibility: hidden;
+            }
+            .dropdown-wrapper.open .dropdown-menu { display: block; opacity: 1; visibility: visible; transform: translateY(0); }
+        }
+        
+        /* GLOW & CARDS */
+        .glow-effect { box-shadow: 0 0 20px rgba(192, 57, 43, 0.1); }
+        .glow-on-hover:hover { box-shadow: 0 0 25px rgba(192, 57, 43, 0.3); }
+        
+        /* Marquee */
+        .testimonial-marquee { width: 100%; overflow: hidden; position: relative; }
+        .marquee-track { display: flex; width: max-content; animation: marqueeScroll 30s linear infinite; }
+        .testimonial-card { flex: 0 0 auto; margin-right: 24px; background: var(--color-card-bg); border-radius: 1rem; width: 320px; }
+        @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .testimonial-marquee:hover .marquee-track { animation-play-state: paused; }
+        
+        /* Circles */
+        .circle-card {
+            width: 180px;
+            height: 180px;
+            background: var(--color-card-bg);
+            border-radius: 50%;
+            border: 3px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .4s ease;
+            margin: auto;
+        }
+        .circle-card:hover { transform: scale(1.08); box-shadow: 0 0 25px rgba(192,57,43,0.4); border-color: var(--color-accent); }
+        .circle-inner h3 { font-size: 2.5rem; font-weight: bold; color: var(--color-accent); }
+        
+        /* Project overlay */
+        .project-card { position: relative; overflow: hidden; border-radius: 1rem; transition: all 0.4s ease; background: var(--color-card-bg); }
+        .project-overlay {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(156, 44, 29, 0.9), transparent);
+            opacity: 0; transition: opacity 0.4s ease; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
+        }
+        .project-card:hover .project-overlay { opacity: 1; }
+        .project-card:hover { transform: scale(1.03); }
+        
+        /* Articles */
+        .article-card { transition: all 0.3s ease; background: var(--color-card-bg); border: 1px solid var(--color-border); border-radius: 1rem; overflow: hidden; }
+        .article-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(156,44,29,0.12); }
+        .article-image { height: 200px; width: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .article-card:hover .article-image { transform: scale(1.05); }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-secondary));
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            display: inline-block;
+            padding-bottom: 0.1em;
+        }
+        
+        .btn-primary { background-color: var(--color-primary); color: white; transition: all 0.3s; }
+        .btn-primary:hover { background-color: var(--color-accent); box-shadow: 0 0 20px rgba(192,57,43,0.4); }
+        .btn-accent { background-color: var(--color-accent); color: white; transition: all 0.3s; }
+        .btn-accent:hover { background-color: var(--color-secondary); box-shadow: 0 0 20px rgba(230,126,34,0.4); }
+        
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .particle-bg { position: absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:0; }
+        .particle { position: absolute; background-color: var(--color-accent); border-radius: 50%; opacity: 0.15; animation: floatParticle 12s infinite ease-in-out; }
+        @keyframes floatParticle { 0%,100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(-20px) translateX(10px); } }
+        
+        .footer-link { color: #ffffff; transition: color 0.3s; }
+        .footer-link:hover { color: var(--color-accent); }
+
+        @media (max-width: 768px) {
+            .circle-card { width: 140px; height: 140px; }
+            .circle-inner h3 { font-size: 2rem; }
+            .circle-cards-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; }
+            .project-overlay { opacity: 1 !important; background: linear-gradient(to top, rgba(156,44,29,0.85), rgba(156,44,29,0.4), transparent); }
+        }
+        @media (max-width: 1280px) {
+            .circle-cards-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; justify-items: center; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="fixed top-3 left-0 w-full z-50" id="main-header">
+        <nav class="mx-auto max-w-[1200px] px-4 sm:px-3 lg:px-4 py-3 flex items-center justify-between h-16 rounded-full shadow-xl border border-border bg-card-bg" style="background-color: var(--color-card-bg);">
+            <a href="index.html" class="text-2xl sm:text-3xl font-serif font-bold text-accent">VintageVend</a>
+
+            <div class="hidden lg:flex items-center space-x-6">
+                <div class="flex space-x-6 text-primary-text font-medium">
+                    <div class="dropdown-wrapper">
+                        <button class="nav-link flex items-center dropdown-toggle">Home <svg class="w-3 h-3 ml-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="dropdown-menu">
+                            <a href="index.html"><i class="fa-solid fa-house text-accent"></i> Home 1</a>
+                            <a href="home2.html"><i class="fa-solid fa-house-chimney text-accent"></i> Home 2</a>
+                        </div>
+                    </div>
+                    <a href="project-page.html" class="nav-link">Restorations</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="parts.html" class="nav-link">Parts</a>
+                    <a href="gallery.html" class="nav-link">Gallery</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="w-px h-6 bg-border mx-3"></div>
+                <div class="flex items-center space-x-4">
+                    <!-- USER DROPDOWN (Human Icon) -->
+                    <div class="dropdown-wrapper" id="user-dropdown">
+                        <button class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200 dropdown-toggle" aria-label="User menu">
+                            <i class="fa-regular fa-user text-2xl"></i>
+                        </button>
+                        <div class="dropdown-menu" style="min-width: 140px;">
+                            <a href="login.html" class="w-full text-left"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                            <a href="signup.html" class="w-full text-left"><i class="fa-solid fa-user-plus"></i> Signup</a>
+                        </div>
+                    </div>
+                    <button id="theme-toggle" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200">
+                        <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <button id="lang-icon" class="text-primary hover:text-accent p-1.5 rounded-full transition duration-200" title="RTL/LTR">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex items-center lg:hidden space-x-4">
+                 
+                <button id="mobile-menu-open" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+        <div id="drawer-backdrop" class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+        <div id="drawer-content" class="absolute top-0 left-0 right-0 bg-background rounded-b-2xl shadow-2xl p-6 lg:hidden max-h-[80vh] overflow-y-auto transform translate-y-[-100%] transition-transform duration-300 ease-out">
+            <div class="flex justify-between items-center pb-4 border-b border-border">
+<h3 class="text-2xl sm:text-3xl font-serif font-bold text-accent">VintageVend</h3>                <button id="mobile-menu-close" class="text-primary hover:text-accent p-1.5 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <nav class="flex flex-col space-y-2 py-4">
+                <div>
+                    <button class="block text-primary-text font-semibold text-lg hover:text-accent py-2 w-full text-left flex justify-between items-center" id="mobile-homes-toggle">Home <svg class="w-4 h-4 transform transition-transform" id="homes-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                    <div id="mobile-homes-menu" class="hidden pl-4 flex flex-col space-y-1 mt-1 border-l-2 border-border">
+                        <a href="index.html" class="text-secondary hover:text-accent py-1 px-2">Home 1</a>
+                        <a href="home2.html" class="text-secondary hover:text-accent py-1 px-2">Home 2</a>
+                    </div>
+                </div>
+                <a href="project-page.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">Restorations</a>
+                <a href="services.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">Services</a>
+                <a href="parts.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">Parts</a>
+                <a href="gallery.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">Gallery</a>
+                <a href="about.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">About</a>
+                <a href="contact.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">Contact</a>
+                <!-- Login & Signup inside mobile header -->
+               <div class="pt-3 mt-2 border-t border-border flex gap-3">
+    
+    <!-- Login -->
+    <a href="login.html" class="flex-1 py-2.5 rounded-lg border border-accent text-accent hover:bg-white hover:text-accent transition font-medium flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-right-to-bracket"></i> Login
+                    </a>
+
+    <!-- Signup -->
+    <a href="signup.html" class="flex-1 py-2.5 rounded-lg border border-accent text-accent hover:bg-white hover:text-accent transition font-medium flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-user-plus"></i> Signup
+                    </a>
+
+</div>
+            </nav>
+            <div class="bottom-icons pt-4 border-t border-border mt-4 flex justify-center items-center gap-8">
+
+    <!-- Theme Toggle (same style as navbar) -->
+    <button id="mobile-theme-toggle" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200">
+        <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+            </path>
+        </svg>
+        <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+            </path>
+        </svg>
+    </button>
+
+    <!-- RTL -->
+    <button id="mobile-lang-icon" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+        </svg>
+    </button>
+
+</div>
+        </div>
+    </div>
+
+    <main class="relative pt-24">
+<!-- ============================================ -->
+<!-- ============================================ -->
+<!-- SECTION 1: SERVICE HERO – WHAT WE OFFER      -->
+<!-- ============================================ -->
+<section class="relative overflow-hidden py-20 md:py-28" style="background: radial-gradient(ellipse at 20% 40%, rgba(192,57,43,0.06) 0%, transparent 70%);">
+    <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto reveal">
+            <span class="inline-block px-4 py-1 bg-accent/15 text-accent text-sm font-semibold rounded-full mb-4">Premium Restoration Services</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-5">We Don't Just Fix — We <span class="gradient-text">Revive History</span></h1>
+            <p class="text-secondary-text text-lg">From mechanical overhauls to showroom finishes, every service is backed by 15+ years of vintage vending expertise.</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-8 mt-16">
+            <div class="flex flex-col items-center gap-2"><i class="fa-solid fa-gear text-4xl text-accent"></i><span class="font-semibold">Mechanical Rebuild</span><span class="text-xs text-secondary-text">Coin mechs, compressors</span></div>
+            <div class="flex flex-col items-center gap-2"><i class="fa-solid fa-paintbrush text-4xl text-accent"></i>
+<span class="font-semibold">Porcelain & Paint</span><span class="text-xs text-secondary-text">Original color match</span></div>
+            <div class="flex flex-col items-center gap-2"><i class="fa-regular fa-lightbulb text-4xl text-accent"></i><span class="font-semibold">Electrical Upgrades</span><span class="text-xs text-secondary-text">LED, safe rewiring</span></div>
+            <div class="flex flex-col items-center gap-2"><i class="fa-solid fa-truck-ramp-box text-4xl text-accent"></i><span class="font-semibold">White‑Glove Delivery</span><span class="text-xs text-secondary-text">Cratered & shipped</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 2: PROCESS STRIP – HOW IT WORKS      -->
+<!-- ============================================ -->
+<section class="py-16 container mx-auto px-4">
+    <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl md:text-4xl font-serif">Your Restoration Journey</h2>
+        <div class="w-24 h-1 bg-accent mx-auto mt-4 rounded-full"></div>
+        <p class="text-secondary-text mt-3">Simple, transparent, vintage‑grade</p>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-stretch gap-4 max-w-5xl mx-auto">
+        <div class="flex-1 text-center p-6 border-b-2 md:border-b-0 md:border-r-2 border-accent/30 relative">
+<div class="w-12 h-12 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-md"
+     style="background-color: var(--color-accent);">
+    1
+</div>          <h3 class="font-bold text-lg">Send Photos</h3>
+            <p class="text-secondary-text text-sm mt-2">Upload machine pics, we assess within 24h</p>
+        </div>
+        <div class="flex-1 text-center p-6 border-b-2 md:border-b-0 md:border-r-2 border-accent/30 relative">
+<div class="w-12 h-12 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-md"
+     style="background-color: var(--color-accent);">
+    2
+</div>            <h3 class="font-bold text-lg">Get Quote & Timeline</h3>
+            <p class="text-secondary-text text-sm mt-2">Detailed breakdown, no surprises</p>
+        </div>
+        <div class="flex-1 text-center p-6 border-b-2 md:border-b-0 md:border-r-2 border-accent/30 relative">
+<div class="w-12 h-12 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-md"
+     style="background-color: var(--color-accent);">
+    3
+</div>            <h3 class="font-bold text-lg">We Restore</h3>
+            <p class="text-secondary-text text-sm mt-2">Weekly progress updates, photos & videos</p>
+        </div>
+        <div class="flex-1 text-center p-6">
+<div class="w-12 h-12 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 shadow-md"
+     style="background-color: var(--color-accent);">
+    4
+</div>            <h3 class="font-bold text-lg">Ship or Pickup</h3>
+            <p class="text-secondary-text text-sm mt-2">Cratered delivery or local pickup</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 3: PRICING LADDER – NO CARDS         -->
+<!-- ============================================ -->
+<section class="py-16 bg-hover/20">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 reveal">
+            <h2 class="text-3xl md:text-4xl font-serif">Investment Tiers</h2>
+            <div class="w-24 h-1 bg-accent mx-auto mt-4 rounded-full"></div>
+            <p class="text-secondary-text mt-3">Choose what fits your machine & budget</p>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-4">
+            <div class="flex flex-wrap items-center justify-between p-5 rounded-xl bg-card-bg border border-border hover:shadow-lg transition-all">
+                <div class="w-full md:w-2/5"><span class="text-xl font-bold">Cosmetic Refresh</span><p class="text-sm text-secondary-text">Clean, polish, touch‑up paint, new bulbs</p></div>
+                <div class="w-full md:w-1/5 text-2xl font-bold text-accent">$495+</div>
+                <div class="w-full md:w-2/5 text-right"><button class="btn-accent text-sm px-5 py-2 rounded-full">Book now</button></div>
+            </div>
+            <div class="flex flex-wrap items-center justify-between p-5 rounded-xl bg-card-bg border-l-4 border-accent shadow-md">
+                <div class="w-full md:w-2/5"><span class="text-xl font-bold">Mechanical Overhaul</span><p class="text-sm text-secondary-text">Coin mech, compressor, wiring, full test</p></div>
+                <div class="w-full md:w-1/5 text-2xl font-bold text-accent">$1,295+</div>
+                <div class="w-full md:w-2/5 text-right"><button class="btn-accent text-sm px-5 py-2 rounded-full">Most popular</button></div>
+            </div>
+            <div class="flex flex-wrap items-center justify-between p-5 rounded-xl bg-card-bg border border-border hover:shadow-lg transition-all">
+                <div class="w-full md:w-2/5"><span class="text-xl font-bold">Full Concours</span><p class="text-sm text-secondary-text">Complete strip, porcelain repair, showroom finish</p></div>
+                <div class="w-full md:w-1/5 text-2xl font-bold text-accent">$2,895+</div>
+                <div class="w-full md:w-2/5 text-right"><button class="btn-accent text-sm px-5 py-2 rounded-full">Request quote</button></div>
+            </div>
+            <div class="flex flex-wrap items-center justify-between p-5 rounded-xl bg-card-bg border border-border hover:shadow-lg transition-all">
+                <div class="w-full md:w-2/5"><span class="text-xl font-bold">Custom Mod</span><p class="text-sm text-secondary-text">Convert to snack, add LED, custom paint</p></div>
+                <div class="w-full md:w-1/5 text-2xl font-bold text-accent">$1,895+</div>
+                <div class="w-full md:w-2/5 text-right"><button class="btn-accent text-sm px-5 py-2 rounded-full">Talk to expert</button></div>
+            </div>
+        </div>
+        <p class="text-center text-xs text-secondary-text mt-6">*Prices are estimates. Final quote after inspection.</p>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 4: GUARANTEE BANNER + METER          -->
+<!-- ============================================ -->
+<section class="py-16 container mx-auto px-4">
+    <div class="max-w-4xl mx-auto bg-card-bg rounded-2xl border border-border overflow-hidden shadow-xl">
+        <div class="grid md:grid-cols-2">
+            <div class="p-8 md:p-10 bg-accent/5 flex flex-col justify-between">
+                <div><i class="fa-regular fa-handshake text-5xl text-accent mb-4"></i><h3 class="text-2xl font-serif font-bold mb-2">Our Promise</h3><p class="text-secondary-text">Every restoration comes with a 1‑year warranty on labor and replaced parts. We stand behind our work.</p></div>
+                <div class="mt-6"><span class="text-accent font-bold">★★★★★ 4.98 (240+ reviews)</span></div>
+            </div>
+            <div class="p-8 md:p-10 border-t md:border-t-0 md:border-l border-border">
+                <h4 class="font-bold mb-2">Customer Satisfaction</h4>
+                <div class="relative pt-1"><div class="flex items-center justify-between"><span class="text-xs">Mechanical reliability</span><span class="text-xs">99%</span></div><div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-border"><div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-accent" style="width: 99%"></div></div></div>
+                <div class="relative pt-1"><div class="flex items-center justify-between"><span class="text-xs">Cosmetic accuracy</span><span class="text-xs">97%</span></div><div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-border"><div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-accent" style="width: 97%"></div></div></div>
+                <div class="relative pt-1"><div class="flex items-center justify-between"><span class="text-xs">On‑time delivery</span><span class="text-xs">94%</span></div><div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-border"><div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-accent" style="width: 94%"></div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 5: FAQ ACCORDION – CLEAN & SPACIOUS   -->
+<!-- ============================================ -->
+<section class="py-16 bg-hover/30">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 reveal">
+            <h2 class="text-3xl md:text-4xl font-serif">Common Questions</h2>
+            <div class="w-24 h-1 bg-accent mx-auto mt-4 rounded-full"></div>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-4">
+            <div class="border border-border rounded-xl bg-card-bg overflow-hidden">
+                <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center">How long does a restoration take? <svg class="w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                <div class="faq-answer hidden px-5 pb-5 text-secondary-text text-sm">Typically 6–12 weeks depending on machine condition and parts availability. We provide weekly photo updates.</div>
+            </div>
+            <div class="border border-border rounded-xl bg-card-bg overflow-hidden">
+                <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center">Do you offer pickup/delivery? <svg class="w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                <div class="faq-answer hidden px-5 pb-5 text-secondary-text text-sm">Yes, we can arrange nationwide pickup and white‑glove delivery. International shipping available for select projects.</div>
+            </div>
+            <div class="border border-border rounded-xl bg-card-bg overflow-hidden">
+                <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center">Can you restore any brand? <svg class="w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                <div class="faq-answer hidden px-5 pb-5 text-secondary-text text-sm">We specialize in Vendo, Cavalier, Ideal, Westinghouse, Pulver, and Selectivend. For others, send us photos and we'll advise.</div>
+            </div>
+            <div class="border border-border rounded-xl bg-card-bg overflow-hidden">
+                <button class="faq-toggle w-full text-left p-5 font-semibold flex justify-between items-center">What payment methods do you accept? <svg class="w-5 h-5 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                <div class="faq-answer hidden px-5 pb-5 text-secondary-text text-sm">Credit card, PayPal, bank transfer, and financing via Klarna. 50% deposit required to start restoration.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 6: BOOKING FORM + CALENDAR PICKER     -->
+<!-- ============================================ -->
+<section class="py-16 container mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div class="reveal">
+            <h2 class="text-3xl font-serif mb-4">Ready to Revive Your Machine?</h2>
+            <p class="text-secondary-text mb-6">Fill out the form or call us at <span class="text-accent font-bold">(555) 872‑1920</span>. We’ll get back to you within 24 hours.</p>
+            <form class="space-y-4">
+                <input type="text" placeholder="Full name" class="w-full p-3 rounded-lg border border-border bg-card-bg">
+                <input type="email" placeholder="Email address" class="w-full p-3 rounded-lg border border-border bg-card-bg">
+                <input type="tel" placeholder="Phone (optional)" class="w-full p-3 rounded-lg border border-border bg-card-bg">
+                <select class="w-full p-3 rounded-lg border border-border bg-card-bg"><option>Select service type</option><option>Cosmetic Refresh</option><option>Mechanical Overhaul</option><option>Full Concours</option><option>Custom Modification</option></select>
+                <textarea rows="3" placeholder="Machine model, year, issues..." class="w-full p-3 rounded-lg border border-border bg-card-bg"></textarea>
+                <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold">Send Request →</button>
+            </form>
+        </div>
+        <div class="bg-card-bg rounded-2xl border border-border p-6 shadow-lg">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fa-regular fa-calendar-alt text-accent"></i> Schedule a Consultation</h3>
+            <div class="grid grid-cols-3 gap-2 mb-4">
+                <div class="text-center p-2 border border-border rounded-lg cursor-pointer hover:bg-white hover:text-accent transition">Mon 10</div>
+                <div class="text-center p-2 border border-border rounded-lg cursor-pointer hover:bg-white hover:text-accent transition">Tue 11</div>
+                <div class="text-center p-2 border border-border rounded-lg cursor-pointer hover:bg-white hover:text-accent transition">Wed 12</div>
+                <div class="text-center p-2 border border-border rounded-lg cursor-pointer hover:bg-white hover:text-accent transition">Thu 13</div>
+                <div class="text-center p-2 border border-border rounded-lg cursor-pointer hover:bg-white hover:text-accent transition">Fri 14</div>
+                <div class="text-center p-2 border border-border rounded-lg cursor-pointer hover:bg-white hover:text-accent transition">Sat 15</div>
+            </div>
+            <select class="w-full p-2 rounded-lg border border-border bg-card-bg mb-4"><option>9:00 AM</option><option>11:00 AM</option><option>2:00 PM</option><option>4:00 PM</option></select>
+         <button class="btn-accent w-full py-2 rounded-lg font-semibold">
+    Confirm Appointment
+</button>
+
+<!-- Selected Info -->
+<div class="mt-4 p-4 rounded-lg bg-hover border border-border text-sm">
+    <p class="font-semibold text-primary-text mb-2">Your Appointment</p>
+    <div class="flex justify-between text-secondary-text">
+        <span>📅 Date</span>
+        <span class="font-medium">Sat 15</span>
+    </div>
+    <div class="flex justify-between text-secondary-text mt-1">
+        <span>⏰ Time</span>
+        <span class="font-medium">9:00 AM</span>
+    </div>
+    <div class="flex justify-between text-secondary-text mt-1">
+        <span>📍 Mode</span>
+        <span class="font-medium">Video Call</span>
+    </div>
+</div>
+
+<!-- Divider -->
+<hr class="my-4 border-border">
+
+<!-- Features -->
+<div class="grid grid-cols-3 text-center text-xs text-secondary-text gap-3">
+    <div>
+        <i class="fa-solid fa-video text-accent text-lg mb-1"></i>
+        <p>Video Call</p>
+    </div>
+    <div>
+        <i class="fa-solid fa-phone text-accent text-lg mb-1"></i>
+        <p>Phone Call</p>
+    </div>
+    <div>
+        <i class="fa-solid fa-clock text-accent text-lg mb-1"></i>
+        <p>15 Minutes</p>
+    </div>
+</div>
+
+
+
+
+<!-- Info -->
+<p class="text-center text-xs text-secondary-text mt-4">
+    Free consultation • No commitment required
+</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    // FAQ accordion functionality
+    document.querySelectorAll('.faq-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector('svg');
+            answer.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        });
+            // --- Active Nav State Automation ---
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            
+            // 1. Desktop Nav
+            document.querySelectorAll('.hidden.lg\\:flex .nav-link, .hidden.lg\\:flex .dropdown-menu a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                    link.style.color = 'var(--color-accent)';
+                    // If it's in a dropdown, highlight the parent dropdown button too
+                    const dropdown = link.closest('.dropdown-wrapper');
+                    if (dropdown) {
+                        const toggle = dropdown.querySelector('.dropdown-toggle');
+                        if (toggle) {
+                            toggle.classList.add('active');
+                            toggle.style.color = 'var(--color-accent)';
+                        }
+                    }
+                }
+            });
+
+            // 2. Mobile Nav
+            document.querySelectorAll('#mobile-menu-drawer a, #mobile-menu-drawer button').forEach(link => {
+                const href = link.getAttribute('href');
+                let isMatch = false;
+                if (href === currentPage) {
+                    isMatch = true;
+                }
+                
+                if (isMatch) {
+                    link.classList.add('text-accent');
+                    link.classList.remove('text-primary', 'text-secondary');
+                    // For mobile dropdown
+                    const parentMenu = link.closest('#mobile-homes-menu');
+                    if(parentMenu){
+                       const toggle = document.getElementById('mobile-homes-toggle');
+                       if(toggle){
+                           toggle.classList.add('text-accent');
+                           toggle.classList.remove('text-primary');
+                       }
+                    }
+                }
+            });
+
+    });
+</script>
+    </main>
+
+    <!-- Footer Vintage Style -->
+    <footer id="main-footer" class="pt-14 transition-colors duration-300" style="background-color: var(--color-footer-bg);">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 pb-10 border-b border-slate-700">
+                <div class="col-span-2 md:col-span-2">
+                    <h3 class="text-2xl sm:text-3xl font-serif font-bold mb-4 text-accent">VintageVend</h3>
+                    <p class="text-sm leading-relaxed max-w-xs text-white">Restoring America’s nostalgic vending machines since 2010. Sales, restoration, and parts worldwide.</p>
+                    <div class="flex space-x-4 rtl:space-x-reverse mt-6">
+                        <a href="#" class="text-slate-300 hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-slate-300 hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-slate-300 hover:text-accent transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div><h4 class="text-lg font-semibold mb-4 text-accent">Services</h4><ul class="space-y-2"><li><a href="#" class="footer-link">Full Restoration</a></li><li><a href="#" class="footer-link">Parts Supply</a></li><li><a href="#" class="footer-link">Custom Paint</a></li><li><a href="#" class="footer-link">Refrigeration Repair</a></li></ul></div>
+<div>
+  <h4 class="text-lg font-semibold mb-4 text-accent">Quick Links</h4>
+  <ul class="space-y-2">
+    <li><a href="index.html" class="footer-link">Home</a></li>
+    <li><a href="services.html" class="footer-link">Services</a></li>
+    <li><a href="restoration.html" class="footer-link">Restoration</a></li>
+    <li><a href="contact.html" class="footer-link">Contact</a></li>
+  </ul>
+</div>
+                <div class="col-span-2 md:col-span-2 lg:col-span-1">
+                    <h4 class="font-semibold text-lg mb-4 text-accent">Newsletter</h4>
+                    <p class="text-sm mb-4 text-white">Get vintage deals & restoration stories.</p>
+                    <input type="email" placeholder="Your email" class="p-3 text-sm rounded-lg w-full bg-slate-800 border border-slate-700 focus:ring-2 focus:ring-accent text-white">
+                    <button class="btn-accent font-semibold py-3 rounded-lg w-full mt-3">Subscribe</button>
+                </div>
+            </div>
+            <div class="py-4 text-center text-xs text-white">&copy; 2025 VintageVend Restoration & Sales. All rights reserved. | <span class="hover:text-accent cursor-pointer">Privacy</span> | <span class="hover:text-accent cursor-pointer">Terms</span></div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const html = document.documentElement;
+            // Dropdown toggles
+            document.querySelectorAll(".dropdown-wrapper").forEach(dropdown => {
+                const btn = dropdown.querySelector(".dropdown-toggle");
+                dropdown.addEventListener("mouseenter", () => { if (window.innerWidth > 1024) dropdown.classList.add("open"); });
+                dropdown.addEventListener("mouseleave", () => { if (window.innerWidth > 1024) dropdown.classList.remove("open"); });
+                if (btn && window.innerWidth <= 1024) btn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); dropdown.classList.toggle("open"); });
+            });
+            document.addEventListener("click", e => { document.querySelectorAll(".dropdown-wrapper").forEach(d => { if (!d.contains(e.target)) d.classList.remove("open"); }); });
+
+            // Theme
+            const themeToggle = document.getElementById('theme-toggle'), mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            const applyTheme = (theme) => { html.setAttribute('data-theme', theme); document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark')); document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light')); localStorage.setItem('theme', theme); };
+            const initTheme = () => { const stored = localStorage.getItem('theme'); const pref = window.matchMedia('(prefers-color-scheme: dark)').matches; applyTheme(stored === 'dark' || (!stored && pref) ? 'dark' : 'light'); };
+            const toggleTheme = () => { const cur = html.getAttribute('data-theme'); applyTheme(cur === 'light' ? 'dark' : 'light'); };
+            themeToggle?.addEventListener('click', toggleTheme); mobileThemeToggle?.addEventListener('click', toggleTheme); initTheme();
+
+            // Language RTL
+            const langBtn = document.getElementById('lang-icon'), mobileLang = document.getElementById('mobile-lang-icon');
+            const toggleLang = () => { const isRTL = html.getAttribute('dir') === 'rtl'; html.setAttribute('dir', isRTL ? 'ltr' : 'rtl'); localStorage.setItem('language', isRTL ? 'en' : 'ar'); };
+            if (langBtn) langBtn.addEventListener('click', toggleLang);
+            if (mobileLang) mobileLang.addEventListener('click', toggleLang);
+            const savedDir = localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr'; html.setAttribute('dir', savedDir);
+
+            // Mobile drawer
+            const drawer = document.getElementById('mobile-menu-drawer'), backdrop = document.getElementById('drawer-backdrop'), content = document.getElementById('drawer-content'), openBtn = document.getElementById('mobile-menu-open'), closeBtn = document.getElementById('mobile-menu-close');
+            const openDrawer = () => { drawer.classList.remove('pointer-events-none'); content.classList.remove('translate-y-[-100%]'); backdrop.classList.add('opacity-50', 'pointer-events-auto'); document.body.style.overflow = 'hidden'; };
+            const closeDrawer = () => { content.classList.add('translate-y-[-100%]'); backdrop.classList.remove('opacity-50', 'pointer-events-auto'); content.addEventListener('transitionend', () => { drawer.classList.add('pointer-events-none'); document.body.style.overflow = ''; }, { once: true }); };
+            openBtn?.addEventListener('click', openDrawer); closeBtn?.addEventListener('click', closeDrawer); backdrop?.addEventListener('click', closeDrawer);
+            document.getElementById('mobile-homes-toggle')?.addEventListener('click', () => { document.getElementById('mobile-homes-menu')?.classList.toggle('hidden'); document.getElementById('homes-icon')?.classList.toggle('rotate-180'); });
+
+            // Particles
+            const particlesDiv = document.getElementById('particles'); if(particlesDiv) for(let i=0;i<35;i++){ let p=document.createElement('div'); p.classList.add('particle'); let size=Math.random()*6+2; p.style.width=size+'px'; p.style.height=size+'px'; p.style.left=Math.random()*100+'%'; p.style.top=Math.random()*100+'%'; p.style.animationDelay=Math.random()*5+'s'; p.style.animationDuration=Math.random()*12+8+'s'; particlesDiv.appendChild(p); }
+            // Scroll reveal
+            const reveals = document.querySelectorAll('.reveal'); const revealScroll = () => { reveals.forEach(el => { if(el.getBoundingClientRect().top < window.innerHeight-100) el.classList.add('active'); }); }; window.addEventListener('scroll', revealScroll); revealScroll();
+            // Marquee duplication
+            const track = document.querySelector('.marquee-track'); if(track) track.innerHTML += track.innerHTML;
+            // --- Active Nav State Automation ---
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            
+            // 1. Desktop Nav
+            document.querySelectorAll('.hidden.lg\\:flex .nav-link, .hidden.lg\\:flex .dropdown-menu a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                    link.style.color = 'var(--color-accent)';
+                    // If it's in a dropdown, highlight the parent dropdown button too
+                    const dropdown = link.closest('.dropdown-wrapper');
+                    if (dropdown) {
+                        const toggle = dropdown.querySelector('.dropdown-toggle');
+                        if (toggle) {
+                            toggle.classList.add('active');
+                            toggle.style.color = 'var(--color-accent)';
+                        }
+                    }
+                }
+            });
+
+            // 2. Mobile Nav
+            document.querySelectorAll('#mobile-menu-drawer a, #mobile-menu-drawer button').forEach(link => {
+                const href = link.getAttribute('href');
+                let isMatch = false;
+                if (href === currentPage) {
+                    isMatch = true;
+                }
+                
+                if (isMatch) {
+                    link.classList.add('text-accent');
+                    link.classList.remove('text-primary', 'text-secondary');
+                    // For mobile dropdown
+                    const parentMenu = link.closest('#mobile-homes-menu');
+                    if(parentMenu){
+                       const toggle = document.getElementById('mobile-homes-toggle');
+                       if(toggle){
+                           toggle.classList.add('text-accent');
+                           toggle.classList.remove('text-primary');
+                       }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

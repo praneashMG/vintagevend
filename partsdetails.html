@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="/assets/vf.jpg" type="image/jpeg">    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23C0392B'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E" type="image/svg+xml">
+    <title>Part Details | Vintage Vending</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =========================
+           THEME VARIABLES – VINTAGE RED (EXACT SAME AS PARTS.HTML)
+        ========================= */
+        :root,
+        html[data-theme='light'] {
+            --color-background: #FDF8F5;
+            --color-primary-text: #2C1810;
+            --color-secondary-text: #5A3A2A;
+            --color-accent: #C0392B;
+            --color-primary: #9B2C1D;
+            --color-secondary: #E67E22;
+            --color-border: #EAD7C3;
+            --color-hover: #FCE4D6;
+            --color-footer-bg: #2C1810;
+            --color-footer-text: #FDF2E9;
+            --color-card-bg: #FFFFFF;
+        }
+
+        html[data-theme='dark'] {
+            --color-background: #1E1410;
+            --color-primary-text: #FCE4D6;
+            --color-secondary-text: #EAD7C3;
+            --color-accent: #E74C3C;
+            --color-primary: #C0392B;
+            --color-secondary: #E67E22;
+            --color-border: #4A2A1A;
+            --color-hover: #3A2218;
+            --color-footer-bg: #0A0604;
+            --color-footer-text: #FCE4D6;
+            --color-card-bg: #2A1A12;
+        }
+
+        html,
+        body {
+            background: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        .text-primary-text { color: var(--color-primary-text); }
+        .text-secondary-text { color: var(--color-secondary-text); }
+        .text-accent { color: var(--color-accent); }
+        .text-primary { color: var(--color-primary); }
+        .text-secondary { color: var(--color-secondary); }
+        .bg-background { background-color: var(--color-background); }
+        .bg-hover { background-color: var(--color-hover); }
+        .bg-accent { background-color: var(--color-accent); }
+        .border-border { border-color: var(--color-border); }
+        .bg-card-bg { background-color: var(--color-card-bg); }
+
+        /* =========================
+           NAVBAR (EXACT MATCH)
+        ========================= */
+        #main-header nav {
+            background: var(--color-card-bg);
+            border-radius: 9999px;
+            padding: 10px 25px;
+            margin: 0 auto;
+            max-width: 1200px;
+            box-shadow: 0 10px 25px rgba(156, 44, 29, 0.15);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        .dropdown-wrapper { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 0.5rem;
+            box-shadow: 0 12px 30px rgba(156, 44, 29, 0.18);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: 0.25s ease;
+        }
+        .dropdown-wrapper.open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-wrapper.open svg { transform: rotate(180deg); transition: 0.25s; }
+        .dropdown-menu a, .dropdown-menu button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: var(--color-primary-text);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--color-border);
+            width: 100%;
+            background: none;
+            cursor: pointer;
+        }
+        .dropdown-menu a:last-child, .dropdown-menu button:last-child { border-bottom: none; }
+        .dropdown-menu a:hover, .dropdown-menu button:hover {
+            background-color: var(--color-hover);
+            color: var(--color-accent);
+            padding-left: 1.25rem;
+        }
+        @media (max-width: 1024px) {
+            .dropdown-menu {
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                display: none;
+                opacity: 0;
+                visibility: hidden;
+            }
+            .dropdown-wrapper.open .dropdown-menu {
+                display: block;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: var(--color-accent);
+            box-shadow: 0 0 20px rgba(192, 57, 43, 0.4);
+        }
+        .btn-accent {
+            background-color: var(--color-accent);
+            color: white;
+            transition: all 0.3s;
+        }
+        .btn-accent:hover {
+            background-color: var(--color-secondary);
+            box-shadow: 0 0 20px rgba(230, 126, 34, 0.4);
+        }
+        .footer-link { color: #ffffff; transition: color 0.3s; }
+        .footer-link:hover { color: var(--color-accent); }
+
+        /* detail specific - text-rich layout */
+        .detail-gallery-thumb {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .detail-gallery-thumb:hover {
+            border-color: var(--color-accent);
+            transform: scale(1.02);
+        }
+        @media (max-width: 768px) {
+            .detail-grid { flex-direction: column; }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .specs-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .specs-table tr:last-child td { border-bottom: none; }
+        .content-block {
+            background: var(--color-card-bg);
+            border-radius: 1rem;
+            border: 1px solid var(--color-border);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .restoration-tip {
+            background: rgba(192, 57, 43, 0.08);
+            border-left: 4px solid var(--color-accent);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    <!-- ========== EXACT SAME HEADER AS PARTS.HTML ========== -->
+    <header class="fixed top-3 left-0 w-full z-50" id="main-header">
+        <nav class="mx-auto max-w-[1200px] px-4 sm:px-3 lg:px-4 py-3 flex items-center justify-between h-16 rounded-full shadow-xl border border-border bg-card-bg"
+            style="background-color: var(--color-card-bg);">
+            <a href="index.html" class="text-2xl sm:text-3xl font-serif font-bold text-accent">VintageVend</a>
+
+            <div class="hidden lg:flex items-center space-x-6">
+                <div class="flex space-x-6 text-primary-text font-medium">
+                    <div class="dropdown-wrapper">
+                        <button class="nav-link flex items-center dropdown-toggle">Home <svg class="w-3 h-3 ml-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                        <div class="dropdown-menu">
+                            <a href="index.html"><i class="fa-solid fa-house text-accent"></i> Home 1</a>
+                            <a href="home2.html"><i class="fa-solid fa-house-chimney text-accent"></i> Home 2</a>
+                        </div>
+                    </div>
+                    <a href="project-page.html" class="nav-link">Restorations</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="parts.html" class="nav-link active">Parts</a>
+                    <a href="gallery.html" class="nav-link">Gallery</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="w-px h-6 bg-border mx-3"></div>
+                <div class="flex items-center space-x-4">
+                    <div class="dropdown-wrapper" id="user-dropdown">
+                        <button class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200 dropdown-toggle" aria-label="User menu"><i class="fa-regular fa-user text-2xl"></i></button>
+                        <div class="dropdown-menu" style="min-width: 140px;">
+                            <a href="login.html" class="w-full text-left"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                            <a href="signup.html" class="w-full text-left"><i class="fa-solid fa-user-plus"></i> Signup</a>
+                        </div>
+                    </div>
+                    <button id="theme-toggle" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200">
+                        <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <button id="lang-icon" class="text-primary hover:text-accent p-1.5 rounded-full transition duration-200" title="RTL/LTR">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex items-center lg:hidden space-x-4">
+                <button id="mobile-menu-open" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg></button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ========== EXACT SAME MOBILE DRAWER ========== -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+        <div id="drawer-backdrop" class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+        <div id="drawer-content" class="absolute top-0 left-0 right-0 bg-background rounded-b-2xl shadow-2xl p-6 lg:hidden max-h-[80vh] overflow-y-auto transform translate-y-[-100%] transition-transform duration-300 ease-out">
+            <div class="flex justify-between items-center pb-4 border-b border-border"><h3 class="text-2xl sm:text-3xl font-serif font-bold text-accent">VintageVend</h3><button id="mobile-menu-close" class="text-primary hover:text-accent p-1.5 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>
+            <nav class="flex flex-col space-y-2 py-4">
+                <div><button class="block text-primary-text font-semibold text-lg hover:text-accent py-2 w-full text-left flex justify-between items-center" id="mobile-homes-toggle">Home <svg class="w-4 h-4 transform transition-transform" id="homes-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div id="mobile-homes-menu" class="hidden pl-4 flex flex-col space-y-1 mt-1 border-l-2 border-border"><a href="index.html" class="text-secondary hover:text-accent py-1 px-2">Home 1</a><a href="home2.html" class="text-secondary hover:text-accent py-1 px-2">Home 2</a></div></div>
+                <a href="project-page.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">Restorations</a>
+                <a href="services.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">Services</a>
+                <a href="parts.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2 text-accent">Parts</a>
+                <a href="gallery.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">Gallery</a>
+                <a href="about.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">About</a>
+                <a href="contact.html" class="text-primary-text font-semibold text-lg hover:text-accent py-2">Contact</a>
+                <div class="pt-3 mt-2 border-t border-border flex gap-3"><a href="login.html" class="flex-1 py-2.5 rounded-lg border border-accent text-accent hover:bg-white hover:text-accent transition font-medium flex items-center justify-center gap-2"><i class="fa-solid fa-right-to-bracket"></i> Login</a><a href="signup.html" class="flex-1 py-2.5 rounded-lg border border-accent text-accent hover:bg-white hover:text-accent transition font-medium flex items-center justify-center gap-2"><i class="fa-solid fa-user-plus"></i> Signup</a></div>
+            </nav>
+            <div class="bottom-icons pt-4 border-t border-border mt-4 flex justify-center items-center gap-8">
+                <button id="mobile-theme-toggle" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200"><svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg><svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></button>
+                <button id="mobile-lang-icon" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg></button>
+            </div>
+        </div>
+    </div>
+
+    <main class="relative pt-24 pb-16">
+        <div class="container mx-auto px-4 py-6">
+            <div id="detail-container" class="max-w-5xl mx-auto">
+                <!-- Loading skeleton (text version) -->
+                <div class="animate-pulse space-y-6">
+                    <div class="h-12 bg-hover rounded w-3/4"></div>
+                    <div class="h-6 bg-hover rounded w-1/2"></div>
+                    <div class="h-40 bg-hover rounded"></div>
+                    <div class="h-32 bg-hover rounded"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== EXACT SAME FOOTER AS PARTS.HTML ========== -->
+    <footer id="main-footer" class="pt-14 transition-colors duration-300" style="background-color: var(--color-footer-bg);">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 pb-10 border-b border-slate-700">
+                <div class="col-span-2 md:col-span-2"><h3 class="text-2xl sm:text-3xl font-serif font-bold mb-4 text-accent">VintageVend</h3><p class="text-sm leading-relaxed max-w-xs text-white">Restoring America's nostalgic vending machines since 2010. Sales, restoration, and parts worldwide.</p><div class="flex space-x-4 rtl:space-x-reverse mt-6"><a href="#" class="text-slate-300 hover:text-accent transition"><i class="fab fa-facebook-f"></i></a><a href="#" class="text-slate-300 hover:text-accent transition"><i class="fab fa-instagram"></i></a><a href="#" class="text-slate-300 hover:text-accent transition"><i class="fab fa-youtube"></i></a></div></div>
+                <div><h4 class="text-lg font-semibold mb-4 text-accent">Services</h4><ul class="space-y-2"><li><a href="#" class="footer-link">Full Restoration</a></li><li><a href="#" class="footer-link">Parts Supply</a></li><li><a href="#" class="footer-link">Custom Paint</a></li><li><a href="#" class="footer-link">Refrigeration Repair</a></li></ul></div>
+                <div><h4 class="text-lg font-semibold mb-4 text-accent">Quick Links</h4><ul class="space-y-2"><li><a href="index.html" class="footer-link">Home</a></li><li><a href="services.html" class="footer-link">Services</a></li><li><a href="restoration.html" class="footer-link">Restoration</a></li><li><a href="contact.html" class="footer-link">Contact</a></li></ul></div>
+                <div class="col-span-2 md:col-span-2 lg:col-span-1"><h4 class="font-semibold text-lg mb-4 text-accent">Newsletter</h4><p class="text-sm mb-4 text-white">Get vintage deals & restoration stories.</p><input type="email" placeholder="Your email" class="p-3 text-sm rounded-lg w-full bg-slate-800 border border-slate-700 focus:ring-2 focus:ring-accent text-white"><button class="btn-accent font-semibold py-3 rounded-lg w-full mt-3">Subscribe</button></div>
+            </div>
+            <div class="py-4 text-center text-xs text-white">&copy; 2025 VintageVend Restoration & Sales. All rights reserved. | <span class="hover:text-accent cursor-pointer">Privacy</span> | <span class="hover:text-accent cursor-pointer">Terms</span></div>
+        </div>
+    </footer>
+
+    <script>
+        // ========== ENHANCED TEXT-RICH PRODUCT DATABASE (no images, full content) ==========
+        const productsDB = {
+            "Vendo 56 Coin Mech": {
+                id: "vendo56", name: "Vendo 56 Coin Mech", category: "Coin Mechanism", price: "$120", oem: "VM-102", stock: "In Stock (7 units)", year: "1956-1962",
+                description: "Original vintage condition coin mechanism for Vendo 56 machines. Professionally cleaned, lubricated, and tested to accept period coins.",
+                longDesc: "This authentic Vendo 56 coin mech has been fully restored to factory specifications. Each unit is disassembled, ultrasonically cleaned, worn parts replaced, and recalibrated. Guaranteed to work with original Vendo 56, 39, and 44 series. Comes with 90-day warranty. Our restoration process includes replacing all springs, adjusting tension plates, and polishing the chrome faceplate. Every mechanism is cycled 200 times with mixed coinage to ensure reliability. This is the heart of your vintage machine — keep it original.",
+                features: ["Original vintage patina preserved", "Tested coin acceptance (nickel/dime/quarter)", "Includes mounting screws and hardware", "Cleaned internal gears and springs", "90-day warranty", "Exact mechanical calibration for 1950s weights"],
+                compatibility: ["Vendo 56", "Vendo 39", "Vendo 44", "Vendo 63", "Vendo 81"],
+                specs: { "Material": "Zinc alloy with chrome finish", "Voltage": "Mechanical (no power required)", "Weight": "2.8 lbs", "Dimensions": "6.5\" x 4.2\" x 3.1\"", "Coin Capacity": "Nickel, Dime, Quarter" },
+                restorationNotes: "Pro tip: For optimal performance, clean the coin path with non-abrasive contact cleaner every 6 months. Avoid oil on the mechanism plates."
+            },
+            "Cavalier 64 Mech": {
+                id: "cav64", name: "Cavalier 64 Mech", category: "Coin Mechanism", price: "$145", oem: "CA-64M", stock: "Limited (3 left)", year: "1964-1970",
+                description: "Fully restored mechanism for Cavalier 60s models. Smooth operation, all springs replaced.",
+                longDesc: "Perfect for Cavalier 64 and 72 series. This coin mech has been bench-tested for 200+ cycles. Chrome finish polished, all rivets tightened. Includes detailed installation guide. What makes our Cavalier mechs special? We source NOS (New Old Stock) springs and pawls that are no longer manufactured. The mechanism retains the iconic clink sound that collectors love. Each unit is hand-adjusted for precise coin rejector pressure.",
+                features: ["New springs installed", "Polished chrome trim", "Drop-in replacement", "Tested with original coins", "Includes mounting bracket", "NOS internal components"],
+                compatibility: ["Cavalier 64", "Cavalier 72", "Cavalier 80", "Cavalier 96", "Cavalier 112"],
+                specs: { "Material": "Stainless steel / chrome", "Voltage": "Mechanical", "Weight": "2.5 lbs", "Dimensions": "6.2\" x 4.0\" x 3.0\"", "Finish": "Bright Chrome" },
+                restorationNotes: "Always lubricate the pivot points with white lithium grease — never WD-40 which attracts dust."
+            },
+            "1/4 HP Compressor": {
+                name: "1/4 HP Compressor", category: "Cooling System", price: "$280", oem: "RC-134A", stock: "In Stock (12 units)", year: "Universal Fit",
+                description: "Quiet run modern replacement for vintage fridges. R134a compatible.",
+                longDesc: "Energy-efficient rotary compressor. Includes pre-attached start capacitor and overload protector. Fits most 1950-1970 vending machines with minor bracket modification. This modern upgrade preserves the original look while providing reliable cooling. Lower power consumption (1.8 amps) means you can run your vintage machine all day without worry. The rubber mounting grommets reduce vibration noise by 40% compared to original compressors.",
+                features: ["Low vibration operation", "5 year manufacturer warranty", "Pre-charged with R134a", "Energy efficient (1.8 amps)", "Includes start capacitor", "Universal mounting plate"],
+                compatibility: ["Vendo (all models)", "Cavalier (all models)", "Ideal 55/65", "Westinghouse", "VMC 33"],
+                specs: { "Material": "Steel casing", "Voltage": "115V AC", "Weight": "18.5 lbs", "BTU Rating": "3,200 BTU", "Noise Level": "42 dBA" },
+                restorationNotes: "Add a hard start kit for areas with brownouts. Use flexible copper lines to reduce stress on connections."
+            }
+        };
+
+        function getGenericProduct(productName) {
+            return {
+                name: productName || "Vintage Vending Part", category: "Replacement Component", price: "Inquire for pricing", oem: "OEM Spec", stock: "Available upon request", year: "1950s-1970s",
+                description: "Professional-grade vintage vending machine part. Each component is inspected, restored, and ready for installation.",
+                longDesc: "At VintageVend, we specialize in authentic parts that keep the nostalgia alive. This component has been sourced from original stock or expertly remanufactured to match period tolerances. Our team tests every part on actual machines before listing. Whether you need a hard-to-find coin chute, a refrigeration relay, or a door gasket, we provide expert guidance and support. All parts come with a 90-day warranty and free technical installation support via email or phone.",
+                features: ["Authentic vintage specification", "Professionally tested", "Ready for installation", "90-day warranty", "Free compatibility check", "Restoration guide included"],
+                compatibility: ["Vendo", "Cavalier", "Westinghouse", "Ideal", "Please confirm with our team"],
+                specs: { "Material": "Original spec metal/plastic", "Condition": "Restored / New Old Stock", "Warranty": "90 days", "Installation": "DIY with included guide" },
+                restorationNotes: "We recommend inspecting your machine's mounting points before ordering — send photos to our support for a perfect match."
+            };
+        }
+
+        function getProductFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            let productName = params.get('product');
+            if (productName) {
+                productName = decodeURIComponent(productName);
+                if (productsDB[productName]) return productsDB[productName];
+            }
+            for (let key in productsDB) {
+                if (productName && key.toLowerCase().includes(productName.toLowerCase())) return productsDB[key];
+            }
+            return getGenericProduct(productName);
+        }
+
+        function renderProductDetails(product) {
+            if (!product) {
+                document.getElementById('detail-container').innerHTML = `<div class="text-center py-20"><i class="fa-regular fa-circle-xmark text-6xl text-accent mb-4"></i><h2 class="text-2xl font-bold">Part not found</h2><a href="parts.html" class="btn-primary inline-block mt-6 px-6 py-3 rounded-full">Back to Parts</a></div>`;
+                return;
+            }
+
+            const stockClass = product.stock?.toLowerCase().includes('stock') ? 'text-green-600 dark:text-green-400' : (product.stock?.toLowerCase().includes('low') ? 'text-orange-500' : 'text-red-500');
+            const featuresHtml = product.features ? product.features.map(f => `<li class="flex items-start gap-3 mb-2"><i class="fa-regular fa-circle-check text-accent mt-1"></i><span>${f}</span></li>`).join('') : '<li class="text-secondary-text">Original spec features available upon request</li>';
+            const compatHtml = product.compatibility ? product.compatibility.map(c => `<span class="inline-block bg-hover px-4 py-1.5 rounded-full text-sm mr-2 mb-2">${c}</span>`).join('') : '<span class="text-secondary-text">Contact our restoration specialists for compatibility details.</span>';
+            
+            let specsHtml = '';
+            if (product.specs) {
+                for (let [key, value] of Object.entries(product.specs)) {
+                    specsHtml += `<tr><td class="font-semibold w-1/3 py-2 align-top">${key}</td><td class="py-2">${value}</td></tr>`;
+                }
+            }
+
+            const restorationNoteHtml = product.restorationNotes ? `<div class="mt-4 p-4 restoration-tip rounded-lg"><i class="fa-solid fa-screwdriver-wrench text-accent mr-2"></i><span class="font-semibold">Restoration Insight:</span> ${product.restorationNotes}</div>` : '';
+
+            const html = `
+                <div class="bg-card-bg rounded-2xl border border-border overflow-hidden shadow-xl reveal">
+                    <div class="px-6 pt-6 pb-2"><a href="parts.html" class="text-accent hover:underline text-sm"><i class="fa-solid fa-arrow-left mr-2"></i> Back to All Parts</a></div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 p-6 md:p-8">
+                        <!-- Text-Heavy Info Panel (NO IMAGES) -->
+                        <div class="space-y-5 order-2 md:order-1">
+                            <div><div class="flex flex-wrap items-center gap-3 mb-2"><span class="inline-block px-3 py-1 bg-accent/20 text-accent text-xs font-bold rounded-full uppercase">${product.category}</span><span class="text-xs ${stockClass} font-medium"><i class="fa-regular fa-circle-check"></i> ${product.stock}</span></div>
+                            <h1 class="text-3xl md:text-4xl font-serif font-bold">${product.name}</h1><div class="mt-3"><span class="text-3xl font-bold text-accent">${product.price}</span></div>
+                            <p class="text-secondary-text mt-4 leading-relaxed">${product.description}</p></div>
+                            <div class="border-t border-border pt-4"><div class="grid grid-cols-2 gap-3 text-sm"><div><span class="text-secondary-text">OEM Number:</span><br><span class="font-mono font-semibold">${product.oem}</span></div><div><span class="text-secondary-text">Year / Era:</span><br><span class="font-semibold">${product.year || '1950s-1960s'}</span></div></div></div>
+                            <div class="pt-2"><a href="contact.html?product=${encodeURIComponent(product.name)}" class="btn-primary w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 text-center"><i class="fa-regular fa-envelope"></i> Inquire About This Part</a><p class="text-xs text-secondary-text text-center mt-3"><i class="fa-regular fa-clock"></i> Usually responds within 24 hours — expert support</p></div>
+                        </div>
+                        <!-- Sidebar Text Info (simulated specs) -->
+                        <div class="order-1 md:order-2 space-y-4">
+                            <div class="bg-hover/30 rounded-xl p-5 border border-border"><i class="fa-regular fa-clipboard text-accent text-2xl mb-2 block"></i><h3 class="font-bold text-lg">Quick Reference</h3><ul class="mt-2 space-y-1 text-sm"><li><i class="fa-regular fa-calendar"></i> Era: ${product.year || 'Golden Age Vending'}</li><li><i class="fa-regular fa-building"></i> OEM: ${product.oem}</li><li><i class="fa-regular fa-box"></i> Availability: ${product.stock}</li><li><i class="fa-regular fa-shield"></i> Warranty: 90-day guarantee</li></ul></div>
+                            <div class="rounded-xl p-4 bg-accent/5"><i class="fa-regular fa-lightbulb text-accent text-xl"></i><p class="text-sm mt-1">All parts are hand-tested by our master restoration technicians with 20+ years of experience.</p></div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-border">
+                        <div class="p-6 md:p-8"><h2 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fa-regular fa-rectangle-list text-accent"></i> Complete Product Details</h2><p class="text-secondary-text leading-relaxed">${product.longDesc}</p>${restorationNoteHtml}</div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8 border-t border-border">
+                            <div><h3 class="font-bold text-lg mb-3 flex items-center gap-2"><i class="fa-regular fa-star text-accent"></i> Key Features</h3><ul class="space-y-1">${featuresHtml}</ul></div>
+                            <div><h3 class="font-bold text-lg mb-3 flex items-center gap-2"><i class="fa-regular fa-microchip text-accent"></i> Compatible Models</h3><div class="flex flex-wrap">${compatHtml}</div></div>
+                        </div>
+                        
+                        ${specsHtml ? `<div class="p-6 md:p-8 border-t border-border"><h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-regular fa-chart-bar text-accent"></i> Technical Specifications</h3><table class="specs-table w-full">${specsHtml}</table></div>` : ''}
+                        
+                        <div class="bg-hover/20 p-6 md:p-8 rounded-b-2xl border-t border-border">
+                            <div class="grid sm:grid-cols-3 gap-4 text-center">
+                                <div><i class="fa-solid fa-truck text-accent text-xl mb-2"></i><p class="font-semibold">Free Shipping</p><p class="text-xs text-secondary-text">On orders over $150</p></div>
+                                <div><i class="fa-solid fa-rotate-left text-accent text-xl mb-2"></i><p class="font-semibold">30-Day Returns</p><p class="text-xs text-secondary-text">Hassle-free returns</p></div>
+                                <div><i class="fa-solid fa-shield-halved text-accent text-xl mb-2"></i><p class="font-semibold">Warranty</p><p class="text-xs text-secondary-text">90-day guarantee</p></div>
+                            </div>
+                            <div class="mt-6 text-center text-sm border-t border-border pt-4"><i class="fa-regular fa-message text-accent mr-1"></i> Need expert advice? Call our restoration hotline: <span class="font-mono">(555) 742-8765</span></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('detail-container').innerHTML = html;
+            const revealEl = document.querySelector('.reveal');
+            if (revealEl) setTimeout(() => revealEl.classList.add('active'), 100);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const product = getProductFromUrl();
+            renderProductDetails(product);
+
+            const html = document.documentElement;
+            document.querySelectorAll(".dropdown-wrapper").forEach(dropdown => {
+                const btn = dropdown.querySelector(".dropdown-toggle");
+                dropdown.addEventListener("mouseenter", () => { if (window.innerWidth > 1024) dropdown.classList.add("open"); });
+                dropdown.addEventListener("mouseleave", () => { if (window.innerWidth > 1024) dropdown.classList.remove("open"); });
+                if (btn && window.innerWidth <= 1024) btn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); dropdown.classList.toggle("open"); });
+            });
+            document.addEventListener("click", e => { document.querySelectorAll(".dropdown-wrapper").forEach(d => { if (!d.contains(e.target)) d.classList.remove("open"); }); });
+
+            const themeToggle = document.getElementById('theme-toggle'), mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            const applyTheme = (theme) => { html.setAttribute('data-theme', theme); document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark')); document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light')); localStorage.setItem('theme', theme); };
+            const initTheme = () => { const stored = localStorage.getItem('theme'); const pref = window.matchMedia('(prefers-color-scheme: dark)').matches; applyTheme(stored === 'dark' || (!stored && pref) ? 'dark' : 'light'); };
+            const toggleTheme = () => { const cur = html.getAttribute('data-theme'); applyTheme(cur === 'light' ? 'dark' : 'light'); };
+            themeToggle?.addEventListener('click', toggleTheme); mobileThemeToggle?.addEventListener('click', toggleTheme); initTheme();
+
+            const langBtn = document.getElementById('lang-icon'), mobileLang = document.getElementById('mobile-lang-icon');
+            const toggleLang = () => { const isRTL = html.getAttribute('dir') === 'rtl'; html.setAttribute('dir', isRTL ? 'ltr' : 'rtl'); localStorage.setItem('language', isRTL ? 'en' : 'ar'); };
+            langBtn?.addEventListener('click', toggleLang); mobileLang?.addEventListener('click', toggleLang);
+            const savedDir = localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr'; html.setAttribute('dir', savedDir);
+
+            const drawer = document.getElementById('mobile-menu-drawer'), backdrop = document.getElementById('drawer-backdrop'), content = document.getElementById('drawer-content'), openBtn = document.getElementById('mobile-menu-open'), closeBtn = document.getElementById('mobile-menu-close');
+            const openDrawer = () => { drawer.classList.remove('pointer-events-none'); content.classList.remove('translate-y-[-100%]'); backdrop.classList.add('opacity-50', 'pointer-events-auto'); document.body.style.overflow = 'hidden'; };
+            const closeDrawer = () => { content.classList.add('translate-y-[-100%]'); backdrop.classList.remove('opacity-50', 'pointer-events-auto'); content.addEventListener('transitionend', () => { drawer.classList.add('pointer-events-none'); document.body.style.overflow = ''; }, { once: true }); };
+            openBtn?.addEventListener('click', openDrawer); closeBtn?.addEventListener('click', closeDrawer); backdrop?.addEventListener('click', closeDrawer);
+            document.getElementById('mobile-homes-toggle')?.addEventListener('click', () => { document.getElementById('mobile-homes-menu')?.classList.toggle('hidden'); document.getElementById('homes-icon')?.classList.toggle('rotate-180'); });
+        });
+    </script>
+</body>
+
+</html>

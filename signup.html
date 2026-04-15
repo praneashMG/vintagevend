@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="/assets/vf.jpg" type="image/jpeg">    <link rel="icon" href="https://images.unsplash.com/photo-1560439514-4e96450399e6?w=64&h=64&fit=crop"
+        type="image/jpeg">
+    <title>VintageVend | Create Account</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =========================
+           THEME VARIABLES – EXACTLY FROM INDEX.HTML (VINTAGE VENDING)
+        ========================= */
+        :root,
+        html[data-theme='light'] {
+            --color-background: #FDF8F5;
+            --color-primary-text: #2C1810;
+            --color-secondary-text: #5A3A2A;
+            --color-accent: #C0392B;
+            --color-primary: #9B2C1D;
+            --color-secondary: #E67E22;
+            --color-border: #EAD7C3;
+            --color-hover: #FCE4D6;
+            --color-footer-bg: #2C1810;
+            --color-footer-text: #FDF2E9;
+            --color-card-bg: #FFFFFF;
+        }
+
+        html[data-theme='dark'] {
+            --color-background: #1E1410;
+            --color-primary-text: #FCE4D6;
+            --color-secondary-text: #EAD7C3;
+            --color-accent: #E74C3C;
+            --color-primary: #C0392B;
+            --color-secondary: #E67E22;
+            --color-border: #4A2A1A;
+            --color-hover: #3A2218;
+            --color-footer-bg: #0A0604;
+            --color-footer-text: #FCE4D6;
+            --color-card-bg: #2A1A12;
+        }
+
+        * {
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background: var(--color-background);
+            color: var(--color-primary-text);
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 1rem;
+        }
+
+        .auth-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 2rem;
+            box-shadow: 0 25px 40px -12px rgba(156, 44, 29, 0.2);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .input-field {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            color: var(--color-primary-text);
+            transition: all 0.2s;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-accent);
+            box-shadow: 0 0 20px rgba(192, 57, 43, 0.4);
+        }
+
+        .text-accent {
+            color: var(--color-accent);
+        }
+
+        .border-accent {
+            border-color: var(--color-accent);
+        }
+
+        /* floating controls (theme + RTL) */
+        .controls {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.75rem;
+            z-index: 50;
+        }
+
+        .btn-control {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-primary-text);
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-control:hover {
+            background: var(--color-hover);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .auth-card {
+                border-radius: 1.5rem;
+            }
+        }
+        @media (max-width: 360px) {
+    .input-field {
+        padding: 0.45rem 0.7rem;
+        font-size: 0.85rem;
+    }
+
+    .auth-card {
+        border-radius: 1.2rem;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating controls: theme toggle + RTL (same as index) -->
+    <div class="controls">
+        <button onclick="toggleRTL()" class="btn-control" title="Toggle RTL/LTR">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+        </button>
+        <button onclick="toggleTheme()" class="btn-control" id="themeBtn" title="Dark / Light mode">
+            <i class="fa-regular fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="relative w-full max-w-3xl">
+        <div class="auth-card w-full flex flex-col md:flex-row overflow-hidden">
+
+            <!-- LEFT SIDE: Branding & vintage vibe (same as login page) -->
+            <div
+                class="hidden md:flex md:w-5/12 relative bg-gradient-to-br from-[#2C1810] to-[#4A2A1A] dark:from-[#1A0D08] dark:to-[#2E1A10]">
+                <div class="absolute inset-0 opacity-20">
+                    <img src="/assets/signup.jpg"
+                        class="w-full h-full object-cover" alt="vintage vending machine">
+                </div>
+                <div class="relative z-10 p-5 lg:p-6 text-white flex flex-col justify-between h-full">
+                    <div>
+                        <!-- EXACT LOGO from index.html -->
+                        <a href="index.html" class="inline-flex items-center gap-2 mb-5 group">
+                            <span class="text-2xl sm:text-3xl font-serif font-bold text-accent">VintageVend</span>
+                        </a>
+                        <h2 class="text-3xl lg:text-4xl font-serif font-bold leading-tight mb-2">
+                            Join the <span class="text-[#E67E22]">collector's club</span>
+                        </h2>
+                        <p class="text-gray-200 text-xs leading-relaxed max-w-xs">
+                            Create an account to track restorations, order rare parts, and get exclusive access to
+                            vintage vending events.
+                        </p>
+                    </div>
+                    <div class="mt-6 bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+                        <p class="italic text-[10px] text-gray-100">"Authentic restorations, rare parts, and fully
+                            restored vintage vending machines — worldwide."</p>
+                        <div class="flex items-center gap-2 mt-2 text-[10px] text-[#E67E22]">
+                            <i class="fa-regular fa-star"></i> <span>Trusted since 2010</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE: SIGNUP FORM -->
+            <div class="w-full md:w-7/12 flex items-center justify-center p-3 sm:p-4 lg:p-4">
+                <div class="w-full max-w-sm">
+
+                    <!-- mobile logo (visible on small screens) -->
+                    <div class="md:hidden flex justify-center mb-3">
+                        <a href="index.html"
+                            class="text-2xl sm:text-3xl font-serif font-bold text-accent">VintageVend</a>
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <h3 class="text-2xl font-bold font-serif mb-1">Create account</h3>
+                        <p class="text-xs text-secondary-text">Start your vintage journey</p>
+                    </div>
+
+                    <!-- Social signup options -->
+                    <div class="flex justify-center gap-3 mb-3">
+                        <button
+                            class="w-9 h-9rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
+                            <i class="fab fa-google text-red-500 text-base"></i>
+                        </button>
+                        <button
+                            class="w-9 h-9rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
+                            <i class="fab fa-apple text-primary-text text-base"></i>
+                        </button>
+                        <button
+                            class="w-9 h-9rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
+                            <i class="fab fa-facebook-f text-blue-600 text-base"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="flex-1 h-px bg-border"></div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-secondary-text">or sign up
+                            with email</span>
+                        <div class="flex-1 h-px bg-border"></div>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <form id="signupForm" class="space-y-1.5">
+                        <div>
+                            <label
+                                class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">First
+                                name</label>
+                            <input type="text" id="firstName" required class="input-field py-2 px-3"
+                                placeholder="John">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">Last
+                                name</label>
+                            <input type="text" id="lastName" required class="input-field py-2 px-3" placeholder="Doe">
+                        </div>
+
+                        <div>
+                            <label
+                                class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">Email
+                                address</label>
+                            <input type="email" id="signupEmail" required class="input-field py-2 px-3"
+                                placeholder="collector@vintagevend.com">
+                        </div>
+
+                        <div>
+                            <label
+                                class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">Password</label>
+                            <div class="relative">
+                                <input type="password" id="signup-password" required
+                                    class="input-field py-2 px-3 pr-10" placeholder="••••••••">
+                                <button type="button" onclick="togglePasswordVisibility('signup-password', this)"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary-text hover:text-accent transition">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label
+                                class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">Confirm
+                                password</label>
+                            <div class="relative">
+                                <input type="password" id="signup-confirm-password" required
+                                    class="input-field py-2 px-3 pr-10" placeholder="••••••••">
+                                <button type="button"
+                                    onclick="togglePasswordVisibility('signup-confirm-password', this)"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary-text hover:text-accent transition">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-1">
+                            <input type="checkbox" required id="termsCheckbox"
+                                class="w-4 h-4 rounded border-border accent-accent">
+                            <label for="termsCheckbox" class="text-xs text-secondary-text cursor-pointer">
+                                I agree to the <a href="#" class="text-accent hover:underline">Terms of Service</a> and
+                                <a href="#" class="text-accent hover:underline">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <button type="submit"
+                            class="btn-primary w-full py-2 text-xs rounded-xl font-bold text-sm uppercase tracking-wider shadow-md transition mt-1">
+                            Create Account <i class="fa-solid fa-user-plus ml-2"></i>
+                        </button>
+                    </form>
+
+                    <p class="text-xs mt-2 text-center text-secondary-text">
+                        Already have an account?
+                        <a href="login.html" class="text-accent font-bold hover:underline">Sign in</a>
+                    </p>
+
+                    <div class="mt-2 text-center text-[11px] text-secondary-text">
+                        <i class="fa-regular fa-shield"></i> Secure registration • SSL encrypted
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================
+        // THEME TOGGLE (same as index)
+        // ========================
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeBtn');
+            const current = html.getAttribute('data-theme');
+            const target = current === 'light' ? 'dark' : 'light';
+
+            html.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            if (btn) {
+                if (target === 'light') {
+                    btn.innerHTML = '<i class="fa-regular fa-moon"></i>';
+                } else {
+                    btn.innerHTML = '<i class="fa-regular fa-sun"></i>';
+                }
+            }
+        }
+
+        // ========================
+        // RTL / LTR TOGGLE
+        // ========================
+        function toggleRTL() {
+            const html = document.documentElement;
+            const current = html.getAttribute('dir');
+            const target = current === 'ltr' ? 'rtl' : 'ltr';
+            html.setAttribute('dir', target);
+            localStorage.setItem('dir', target);
+        }
+
+        // ========================
+        // PASSWORD VISIBILITY
+        // ========================
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // ========================
+        // INIT THEME & DIR FROM STORAGE
+        // ========================
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        const themeBtn = document.getElementById('themeBtn');
+        if (themeBtn) {
+            themeBtn.innerHTML = savedTheme === 'light' ? '<i class="fa-regular fa-moon"></i>' : '<i class="fa-regular fa-sun"></i>';
+        }
+
+        const savedDir = localStorage.getItem('dir');
+        if (savedDir) {
+            document.documentElement.setAttribute('dir', savedDir);
+        } else {
+            document.documentElement.setAttribute('dir', 'ltr');
+        }
+
+        // ========================
+        // SIGNUP HANDLER with validation
+        // ========================
+        const signupForm = document.getElementById('signupForm');
+        if (signupForm) {
+            signupForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const email = document.getElementById('signupEmail').value.trim();
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('signup-confirm-password').value;
+                const termsChecked = document.getElementById('termsCheckbox').checked;
+
+                if (!firstName || !lastName || !email || !password || !confirmPassword) {
+                    alert("⚠️ Please fill in all fields.");
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    alert("❌ Passwords do not match. Please re-enter.");
+                    return;
+                }
+
+                if (password.length < 6) {
+                    alert("🔒 Password must be at least 6 characters.");
+                    return;
+                }
+
+                if (!termsChecked) {
+                    alert("📜 You must agree to the Terms of Service and Privacy Policy.");
+                    return;
+                }
+
+                // demo registration success
+                alert(`✅ Welcome, ${firstName} ${lastName}!\nYour account has been created.\nYou can now log in with your email: ${email}`);
+
+                // optional: redirect to login page
+                // window.location.href = "login.html";
+            });
+        }
+
+        // Social signup demo
+        const socialBtns = document.querySelectorAll('.flex.justify-center.gap-4 button');
+        socialBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert("🔐 Social signup demo: connect with Google / Apple / Facebook. Full integration ready.");
+            });
+        });
+    </script>
+</body>
+
+</html>
