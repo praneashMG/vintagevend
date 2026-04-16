@@ -230,6 +230,16 @@
         @media (max-width: 1280px) {
             .circle-cards-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; justify-items: center; }
         }
+        
+        /* Utility for responsive scrollbar removal */
+        @media (min-width: 768px) {
+            .md\:scrollbar-none {
+                scrollbar-width: none !important;
+            }
+            .md\:scrollbar-none::-webkit-scrollbar {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -523,7 +533,7 @@
                 <div class="h-48 bg-hover flex items-center justify-center relative overflow-hidden">
                     <img src="/assets/v5.jpg" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition duration-500" alt="Decals">
                     <span class="absolute top-3 right-3 bg-card-bg text-xs font-bold px-2 py-1 rounded-md shadow-sm border border-border text-primary-text">Cosmetic</span>
-                </div>Vendo 39 Handle
+                </div>
 
                 <div class="p-5 flex flex-col justify-between" style="height: 160px;">
                     <div>
@@ -602,7 +612,7 @@
         <div class="w-20 h-0.5 bg-accent mx-auto mt-3 rounded-full"></div>
     </div>
     <div class="relative">
-        <div class="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-6 px-4 scrollbar-thin justify-center" style="scrollbar-width: thin;">
+        <div class="flex overflow-x-auto md:flex-wrap md:overflow-x-visible snap-x snap-mandatory md:snap-none gap-5 pb-6 px-4 scrollbar-thin md:scrollbar-none justify-center">
             <div class="flex-none w-48 text-center snap-start group cursor-pointer">
                 <div class="w-32 h-32 mx-auto rounded-full bg-card-bg border-2 border-border flex items-center justify-center group-hover:border-accent group-hover:shadow-lg transition"><i class="fa-solid fa-coins text-5xl text-accent"></i></div>
                 <p class="mt-3 font-semibold">Coin Mechanisms</p>
