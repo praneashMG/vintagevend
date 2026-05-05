@@ -88,7 +88,8 @@
             transform: scaleX(0);
             transition: transform 0.3s;
         }
-        .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+        .nav-link:hover::after { transform: scaleX(1); }
+        .nav-link.active { color: var(--color-accent); }
         
         /* Dropdowns */
         .dropdown-wrapper { position: relative; }
@@ -134,6 +135,11 @@
             padding-left: 1.25rem;
         }
         
+        /* Subtle gap fix for Home & Restorations */
+        .home-link-gap {
+            margin-inline-end: 0.75rem;
+        }
+
         @media (max-width: 1024px) {
             .dropdown-menu {
                 position: absolute;
@@ -223,13 +229,18 @@
 </head>
 <body class="antialiased">
     <header class="fixed top-3 left-0 w-full z-50" id="main-header">
-        <nav class="mx-auto max-w-[1200px] px-4 sm:px-3 lg:px-4 py-3 flex items-center justify-between h-16 rounded-full shadow-xl border border-border bg-card-bg" style="background-color: var(--color-card-bg);">
-            <a href="index.html" class="text-2xl sm:text-3xl font-serif font-bold text-accent">VintageVend</a>
+        <nav class="mx-auto max-w-[1200px] px-4 sm:px-3 lg:px-4 py-3 flex items-center justify-between h-16 rounded-full shadow-xl border border-border bg-card-bg" style="background-color: var(--color-card-bg);">            <a href="index.html" class="text-2xl sm:text-3xl font-serif font-bold text-accent shrink-0">VintageVend</a>
 
-            <div class="hidden lg:flex items-center space-x-6">
+            <!-- Desktop Navigation (Centered) -->
+            <div class="hidden lg:flex items-center justify-center flex-1 px-8">
                 <div class="flex space-x-6 text-primary-text font-medium">
-                    <div class="dropdown-wrapper">
-                        <button class="nav-link flex items-center dropdown-toggle">Home <svg class="w-3 h-3 ml-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                    <div class="dropdown-wrapper home-link-gap">
+                        <button class="nav-link flex items-center dropdown-toggle">Home <svg
+                                class="w-3 h-3 ml-1.5 transition-transform" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg></button>
                         <div class="dropdown-menu">
                             <a href="index.html">Home 1</a>
                             <a href="home2.html">Home 2</a>
@@ -239,37 +250,58 @@
                     <a href="services.html" class="nav-link">Services</a>
                     <a href="parts.html" class="nav-link">Parts</a>
                     <a href="gallery.html" class="nav-link">Gallery</a>
-                    <a href="about.html" class="nav-link">About</a>
+                    <a href="about.html" class="nav-link active">About</a>
                     <a href="contact.html" class="nav-link">Contact</a>
-                </div>
-                <div class="w-px h-6 bg-border mx-3"></div>
-                <div class="flex items-center space-x-4">
-                    <!-- USER DROPDOWN (Human Icon) -->
-                    <div class="dropdown-wrapper" id="user-dropdown">
-                        <button class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200 dropdown-toggle" aria-label="User menu">
-                            <i class="fa-regular fa-user text-2xl"></i>
-                        </button>
-                        <div class="dropdown-menu" style="min-width: 140px;">
-                            <a href="login.html" class="w-full text-left"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-                            <a href="signup.html" class="w-full text-left"><i class="fa-solid fa-user-plus"></i> Signup</a>
-                        </div>
-                    </div>
-                    <button id="theme-toggle" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200">
-                        <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                    </button>
-                    <button id="lang-icon" class="text-primary hover:text-accent p-1.5 rounded-full transition duration-200" title="RTL/LTR">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
-                    </button>
                 </div>
             </div>
 
-            <div class="flex items-center lg:hidden space-x-4">
-                 
-                <button id="mobile-menu-open" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <!-- Right Actions (Icons) -->
+            <div class="hidden lg:flex items-center space-x-4 shrink-0">
+                <!-- USER DROPDOWN (Human Icon) -->
+                <div class="dropdown-wrapper" id="user-dropdown">
+                    <button
+                        class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200 dropdown-toggle"
+                        aria-label="User menu">
+                        <i class="fa-regular fa-user text-2xl"></i>
+                    </button>
+                    <div class="dropdown-menu" style="min-width: 140px;">
+                        <a href="login.html" class="w-full text-left"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                        <a href="signup.html" class="w-full text-left"><i class="fa-solid fa-user-plus"></i> Signup</a>
+                    </div>
+                </div>
+                <button id="theme-toggle"
+                    class="icon-btn text-primary hover:text-accent p-1.5 rounded-full transition duration-200">
+                    <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                    <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
+                </button>
+                <button id="lang-icon"
+                    class="text-primary hover:text-accent p-1.5 rounded-full transition duration-200"
+                    title="RTL/LTR">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                    </svg>
                 </button>
             </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="flex items-center lg:hidden">
+                <button id="mobile-menu-open" class="icon-btn text-primary hover:text-accent p-1.5 rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
         </nav>
     </header>
 

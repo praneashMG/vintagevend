@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="/assets/vf.jpg" type="image/jpeg">    <link rel="icon" href="https://images.unsplash.com/photo-1560439514-4e96450399e6?w=64&h=64&fit=crop" type="image/jpeg">
+    <link rel="icon" href="/assets/vf.jpg" type="image/jpeg">
+    <link rel="icon" href="https://images.unsplash.com/photo-1560439514-4e96450399e6?w=64&h=64&fit=crop"
+        type="image/jpeg">
     <title>VintageVend | Account Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
-<script src="tailwind.js"></script>
+    <script src="tailwind.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =========================
@@ -94,6 +97,7 @@
             color: white;
             transition: all 0.3s;
         }
+
         .btn-primary:hover {
             background-color: var(--color-accent);
             box-shadow: 0 0 20px rgba(192, 57, 43, 0.4);
@@ -102,9 +106,11 @@
         .text-accent {
             color: var(--color-accent);
         }
+
         .border-accent {
             border-color: var(--color-accent);
         }
+
         .bg-accent-light {
             background-color: rgba(192, 57, 43, 0.08);
         }
@@ -118,6 +124,7 @@
             gap: 0.75rem;
             z-index: 50;
         }
+
         .btn-control {
             width: 42px;
             height: 42px;
@@ -132,6 +139,7 @@
             transition: all 0.2s;
             backdrop-filter: blur(4px);
         }
+
         .btn-control:hover {
             background: var(--color-hover);
             transform: scale(1.05);
@@ -145,6 +153,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Floating controls: theme toggle + RTL (same as your index) -->
@@ -159,12 +168,12 @@
 
     <div class="relative w-full max-w-5xl">
         <div class="auth-card w-full flex flex-col md:flex-row overflow-hidden">
-            
+
             <!-- LEFT SIDE: Branding & vintage vibe (with logo & tagline) -->
-            <div class="hidden md:flex md:w-5/12 relative bg-gradient-to-br from-[#2C1810] to-[#4A2A1A] dark:from-[#1A0D08] dark:to-[#2E1A10]">
+            <div
+                class="hidden md:flex md:w-5/12 relative bg-gradient-to-br from-[#2C1810] to-[#4A2A1A] dark:from-[#1A0D08] dark:to-[#2E1A10]">
                 <div class="absolute inset-0 opacity-20">
-                    <img src="/assets/login.jpg" 
-                         class="w-full h-full object-cover" alt="vintage vending machine">
+                    <img src="/assets/login.jpg" class="w-full h-full object-cover" alt="vintage vending machine">
                 </div>
                 <div class="relative z-10 p-8 lg:p-10 text-white flex flex-col justify-between h-full">
                     <div>
@@ -176,11 +185,13 @@
                             Restore the <span class="text-[#E67E22]">golden era</span>
                         </h2>
                         <p class="text-gray-200 text-sm leading-relaxed max-w-xs">
-                            Access your account to track restorations, order rare parts, and manage your vintage collection.
+                            Access your account to track restorations, order rare parts, and manage your vintage
+                            collection.
                         </p>
                     </div>
                     <div class="mt-8 bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20 text-center">
-                        <p class="italic text-xs text-gray-100">"Authentic restorations, rare parts, and fully restored vintage vending machines — worldwide."</p>
+                        <p class="italic text-xs text-gray-100">"Authentic restorations, rare parts, and fully restored
+                            vintage vending machines — worldwide."</p>
                         <div class="flex items-center justify-center gap-2 mt-3 text-xs text-[#E67E22]">
                             <i class="fa-regular fa-star"></i> <span>Trusted since 2010</span>
                         </div>
@@ -191,10 +202,11 @@
             <!-- RIGHT SIDE: LOGIN FORM -->
             <div class="w-full md:w-7/12 flex items-center justify-center p-5 sm:p-10 lg:p-12">
                 <div class="w-full max-w-sm">
-                    
+
                     <!-- mobile logo (visible on small screens) -->
                     <div class="md:hidden flex justify-center mb-6">
-                        <a href="index.html" class="text-2xl sm:text-3xl font-serif font-bold text-accent">VintageVend</a>
+                        <a href="index.html"
+                            class="text-2xl sm:text-3xl font-serif font-bold text-accent">VintageVend</a>
                     </div>
 
                     <div class="text-center mb-5 sm:mb-8">
@@ -204,65 +216,72 @@
 
                     <!-- Social login options (keeps vintage feel) -->
                     <div class="flex justify-center gap-3 mb-5 sm:mb-8">
-                        <button class="w-10 h-10 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
+                        <button
+                            class="w-10 h-10 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
                             <i class="fab fa-google text-red-500 text-sm"></i>
                         </button>
-                        <button class="w-10 h-10 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
+                        <button
+                            class="w-10 h-10 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
                             <i class="fab fa-apple text-primary-text text-sm"></i>
                         </button>
-                        <button class="w-10 h-10 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
+                        <button
+                            class="w-10 h-10 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
                             <i class="fab fa-facebook-f text-blue-600 text-sm"></i>
                         </button>
                     </div>
 
                     <div class="flex items-center gap-3 mb-5 sm:mb-6">
                         <div class="flex-1 h-px bg-border"></div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-secondary-text">or with email</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-secondary-text">or with
+                            email</span>
                         <div class="flex-1 h-px bg-border"></div>
                     </div>
 
                     <!-- Login Form -->
                     <form id="loginForm" class="space-y-4 sm:space-y-5">
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">Email address</label>
-                            <input type="email" id="loginEmail" required 
-                                   class="input-field" 
-                                   placeholder="pgr@vintagevend.com">
+                            <label
+                                class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">Email
+                                address</label>
+                            <input type="email" id="loginEmail" required class="input-field"
+                                placeholder="pgr@vintagevend.com">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">Password</label>
+                            <label
+                                class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">Password</label>
                             <div class="relative">
-                                <input type="password" id="login-password" required 
-                                       class="input-field pr-12" 
-                                       placeholder="••••••••">
-                                <button type="button" onclick="togglePasswordVisibility('login-password', this)" 
-                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary-text hover:text-accent transition">
+                                <input type="password" id="login-password" required class="input-field pr-12"
+                                    placeholder="••••••••">
+                                <button type="button" onclick="togglePasswordVisibility('login-password', this)"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary-text hover:text-accent transition">
                                     <i class="far fa-eye"></i>
                                 </button>
                             </div>
                             <div class="flex justify-between items-center mt-2.5">
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" id="rememberCheckbox" class="w-3.5 h-3.5 rounded border-border accent-accent">
+                                    <input type="checkbox" id="rememberCheckbox"
+                                        class="w-3.5 h-3.5 rounded border-border accent-accent">
                                     <span class="text-[11px] text-secondary-text">Remember me</span>
                                 </label>
-                                <a href="#" class="text-[11px] font-semibold text-accent hover:underline">Forgot password?</a>
+                                <a href="#" class="text-[11px] font-semibold text-accent hover:underline">Forgot
+                                    password?</a>
                             </div>
                         </div>
 
-                        <button type="submit" 
-                                class="btn-primary w-full py-3 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md transition">
+                        <button type="submit"
+                            class="btn-primary w-full py-3 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md transition">
                             Sign In <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
                         </button>
                     </form>
 
-                 <p class="text-xs mt-6 sm:mt-8 text-center text-secondary-text">
-    Don't have an account? 
-    <a href="signup.html" id="signupRedirect" class="text-accent font-bold hover:underline">
-        Create an account
-    </a>
-</p>
-                    
+                    <p class="text-xs mt-6 sm:mt-8 text-center text-secondary-text">
+                        Don't have an account?
+                        <a href="signup.html" id="signupRedirect" class="text-accent font-bold hover:underline">
+                            Create an account
+                        </a>
+                    </p>
+
                     <div class="mt-5 text-center text-[10px] text-secondary-text opacity-80">
                         <i class="fa-regular fa-shield"></i> Secure login • SSL encrypted
                     </div>
@@ -280,7 +299,7 @@
             const btn = document.getElementById('themeBtn');
             const current = html.getAttribute('data-theme');
             const target = current === 'light' ? 'dark' : 'light';
-            
+
             html.setAttribute('data-theme', target);
             localStorage.setItem('theme', target);
             if (btn) {
@@ -291,7 +310,7 @@
                 }
             }
         }
-        
+
         // ========================
         // RTL / LTR TOGGLE
         // ========================
@@ -302,7 +321,7 @@
             html.setAttribute('dir', target);
             localStorage.setItem('dir', target);
         }
-        
+
         // ========================
         // PASSWORD VISIBILITY
         // ========================
@@ -319,7 +338,7 @@
                 icon.classList.add('fa-eye');
             }
         }
-        
+
         // ========================
         // INIT THEME & DIR FROM STORAGE
         // ========================
@@ -329,49 +348,49 @@
         if (themeBtn) {
             themeBtn.innerHTML = savedTheme === 'light' ? '<i class="fa-regular fa-moon"></i>' : '<i class="fa-regular fa-sun"></i>';
         }
-        
+
         const savedDir = localStorage.getItem('dir');
         if (savedDir) {
             document.documentElement.setAttribute('dir', savedDir);
         } else {
             document.documentElement.setAttribute('dir', 'ltr');
         }
-        
+
         // ========================
         // DEMO LOGIN HANDLER (smooth alert)
         // ========================
         const loginForm = document.getElementById('loginForm');
         if (loginForm) {
-            loginForm.addEventListener('submit', function(e) {
+            loginForm.addEventListener('submit', function (e) {
                 e.preventDefault();
                 const email = document.getElementById('loginEmail').value.trim();
                 const password = document.getElementById('login-password').value;
                 const remember = document.getElementById('rememberCheckbox')?.checked || false;
-                
+
                 if (!email || !password) {
                     alert("⚠️ Please fill in both email and password to continue.");
                     return;
                 }
-                
+
                 if (remember) {
                     localStorage.setItem('vintage_remember_email', email);
                 } else {
                     localStorage.removeItem('vintage_remember_email');
                 }
-                
+
                 alert(`✅ Welcome back, ${email}!\n(Login successful — demo mode)\nYou'll be redirected to your dashboard.`);
                 // Uncomment below to redirect to your actual dashboard:
                 // window.location.href = "account.html";
             });
         }
-        
+
         // Prefill remembered email if exists
         const rememberedEmail = localStorage.getItem('vintage_remember_email');
         if (rememberedEmail && document.getElementById('loginEmail')) {
             document.getElementById('loginEmail').value = rememberedEmail;
             document.getElementById('rememberCheckbox').checked = true;
         }
-        
+
         // Signup link demo
         // const signupLink = document.getElementById('signupRedirect');
         // if (signupLink) {
@@ -380,7 +399,7 @@
         //         alert("✨ Create your VintageVend account! (Signup page coming soon — contact us for early access)");
         //     });
         // }
-        
+
         // Social login demo placeholders
         const socialBtns = document.querySelectorAll('.flex.justify-center.gap-4 button');
         socialBtns.forEach(btn => {
@@ -388,7 +407,7 @@
                 alert("🔐 Social login demo: connect with Google / Apple / Facebook. Full integration ready.");
             });
         });
-        
+
         // Forgot password demo
         const forgotLink = document.querySelector('a[href="#"]');
         if (forgotLink && forgotLink.innerText.includes('Forgot password')) {
@@ -399,4 +418,5 @@
         }
     </script>
 </body>
+
 </html>

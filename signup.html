@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="/assets/vf.jpg" type="image/jpeg">    <link rel="icon" href="https://images.unsplash.com/photo-1560439514-4e96450399e6?w=64&h=64&fit=crop"
+    <link rel="icon" href="/assets/vf.jpg" type="image/jpeg">
+    <link rel="icon" href="https://images.unsplash.com/photo-1560439514-4e96450399e6?w=64&h=64&fit=crop"
         type="image/jpeg">
     <title>VintageVend | Create Account</title>
     <script src="https://cdn.tailwindcss.com"></script>
-<script src="tailwind.js"></script>
+    <script src="tailwind.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* =========================
@@ -138,16 +139,17 @@
                 border-radius: 1.5rem;
             }
         }
-        @media (max-width: 360px) {
-    .input-field {
-        padding: 0.45rem 0.7rem;
-        font-size: 0.85rem;
-    }
 
-    .auth-card {
-        border-radius: 1.2rem;
-    }
-}
+        @media (max-width: 360px) {
+            .input-field {
+                padding: 0.45rem 0.7rem;
+                font-size: 0.85rem;
+            }
+
+            .auth-card {
+                border-radius: 1.2rem;
+            }
+        }
     </style>
 </head>
 
@@ -170,8 +172,7 @@
             <div
                 class="hidden md:flex md:w-5/12 relative bg-gradient-to-br from-[#2C1810] to-[#4A2A1A] dark:from-[#1A0D08] dark:to-[#2E1A10]">
                 <div class="absolute inset-0 opacity-20">
-                    <img src="/assets/signup.jpg"
-                        class="w-full h-full object-cover" alt="vintage vending machine">
+                    <img src="/assets/signup.jpg" class="w-full h-full object-cover" alt="vintage vending machine">
                 </div>
                 <div class="relative z-10 p-5 lg:p-6 text-white flex flex-col justify-between h-full">
                     <div>
@@ -211,21 +212,24 @@
                         <h3 class="text-2xl font-bold font-serif mb-1">Create account</h3>
                         <p class="text-xs text-secondary-text">Start your vintage journey</p>
                     </div>
-<div class="flex justify-center gap-3 mb-3">
-    
-    <button class="w-9 h-9 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
-        <i class="fab fa-google text-red-500 text-base"></i>
-    </button>
+                    <div class="flex justify-center gap-3 mb-3">
 
-    <button class="w-9 h-9 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
-        <i class="fab fa-apple text-primary-text text-base"></i>
-    </button>
+                        <button
+                            class="w-9 h-9 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
+                            <i class="fab fa-google text-red-500 text-base"></i>
+                        </button>
 
-    <button class="w-9 h-9 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
-        <i class="fab fa-facebook-f text-blue-600 text-base"></i>
-    </button>
+                        <button
+                            class="w-9 h-9 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
+                            <i class="fab fa-apple text-primary-text text-base"></i>
+                        </button>
 
-</div>
+                        <button
+                            class="w-9 h-9 rounded-full border border-border bg-card-bg flex items-center justify-center hover:bg-hover transition shadow-sm">
+                            <i class="fab fa-facebook-f text-blue-600 text-base"></i>
+                        </button>
+
+                    </div>
 
                     <div class="flex items-center gap-2 mb-2">
                         <div class="flex-1 h-px bg-border"></div>
@@ -240,8 +244,7 @@
                             <label
                                 class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">First
                                 name</label>
-                            <input type="text" id="firstName" required class="input-field py-2 px-3"
-                                placeholder="John">
+                            <input type="text" id="firstName" required class="input-field py-2 px-3" placeholder="John">
                         </div>
                         <div>
                             <label
@@ -262,8 +265,8 @@
                             <label
                                 class="block text-xs font-bold uppercase tracking-wider mb-1 text-secondary-text">Password</label>
                             <div class="relative">
-                                <input type="password" id="signup-password" required
-                                    class="input-field py-2 px-3 pr-10" placeholder="••••••••">
+                                <input type="password" id="signup-password" required class="input-field py-2 px-3 pr-10"
+                                    placeholder="••••••••">
                                 <button type="button" onclick="togglePasswordVisibility('signup-password', this)"
                                     class="absolute right-3 top-1/2 -translate-y-1/2 text-secondary-text hover:text-accent transition">
                                     <i class="far fa-eye"></i>
