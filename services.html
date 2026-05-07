@@ -445,6 +445,65 @@
                 justify-items: center;
             }
         }
+
+        /* =========================
+           SERVICES HERO ENHANCEMENTS
+        ========================= */
+        .hero-services-wrap {
+            position: relative;
+            background-image: url('assets/services_hero_bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -96px; /* Offset for absolute header if needed, but let's see */
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, var(--color-background) 100%);
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        html[data-theme='light'] .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(156, 44, 29, 0.1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--color-accent);
+            box-shadow: 0 15px 45px rgba(192, 57, 43, 0.2);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-10px) translateX(-50%);}
+            60% {transform: translateY(-5px) translateX(-50%);}
+        }
     </style>
 </head>
 
@@ -615,159 +674,159 @@
     </div>
 
     <main class="relative pt-24">
-        <!-- ============================================ -->
-        <!-- ============================================ -->
-        <!-- SECTION 1: SERVICE HERO – WHAT WE OFFER      -->
-        <!-- ============================================ -->
-        <section class="relative overflow-hidden py-24 md:py-32">
+      <!-- ============================================ -->
+<!-- PREMIUM HERO SECTION -->
+<!-- ============================================ -->
+<section class="relative min-h-[88vh] lg:min-h-[92vh] flex items-center overflow-hidden">
 
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1974&auto=format&fit=crop"
+            class="w-full h-full object-cover scale-105"
+            alt="Vintage Vending Machine">
 
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-black/70"></div>
 
-            <div class="container mx-auto px-4 relative z-10">
+        <!-- Gradient Blend -->
+        <div
+        <div
+    class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/75 to-black">
+</div>        </div>
+    </div>
 
-                <!-- Hero Content -->
-                <div class="max-w-4xl mx-auto text-center reveal">
+    <!-- Decorative Glow -->
+    <div
+        class="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl opacity-20"
+        style="background-color: var(--color-accent);">
+    </div>
 
-                    <span
-                        class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold border border-border shadow-md"
-                        style="background-color: var(--color-card-bg); color: var(--color-accent);">
-                        <i class="fa-solid fa-star"></i>
-                        Vintage Restoration Experts
+    <div
+        class="absolute bottom-10 right-10 w-80 h-80 rounded-full blur-3xl opacity-10"
+        style="background-color: var(--color-secondary);">
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-6 relative z-10">
+
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+            <!-- LEFT CONTENT -->
+            <div class="text-center lg:text-left">
+
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/20 backdrop-blur-xl bg-white/10 text-white text-sm font-semibold">
+
+                   
+
+                </div>
+
+                <!-- Heading -->
+                <h1
+                    class="mt-8 text-4xl md:text-5xl xl:text-6xl font-black leading-[0.95] text-white font-serif">
+
+                    Restoring
+                    <span class="block gradient-text">
+                        Vintage Legends
                     </span>
 
-                    <h1 class="mt-6 text-5xl md:text-7xl font-black leading-tight font-serif"
-                        style="color: var(--color-primary-text);">
+                </h1>
 
-                        Bringing Old Machines
-                        <br>
+                <!-- Description -->
+                <p
+                    class="mt-8 text-lg md:text-xl leading-relaxed text-white/80 max-w-2xl">
 
-                        <span class="gradient-text">
-                            Back To Life
-                        </span>
+                    From classic Coca-Cola machines to rare collectible
+                    dispensers, we revive iconic vending machines with
+                    authentic craftsmanship, museum-level detailing,
+                    and modern performance upgrades.
 
-                    </h1>
+                </p>
 
-                    <p class="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
-                        style="color: var(--color-secondary-text);">
+                <!-- Buttons -->
+                <div
+                    class="flex flex-wrap gap-4 mt-10 justify-center lg:justify-start">
 
-                        Every vending machine tells a story.
-                        We restore classic American vending machines
-                        with authentic craftsmanship, precision detailing,
-                        and modern reliability.
+                    <a href="#services"
+                        class="px-8 py-4 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105 shadow-2xl"
+                        style="background-color: var(--color-primary);">
 
-                    </p>
+                        Explore Services
 
-                    <!-- Buttons -->
-                    <div class="flex flex-wrap justify-center gap-4 mt-10">
+                    </a>
 
-                        <a href="#services"
-                            class="px-8 py-4 rounded-full font-semibold text-white shadow-lg transition hover:scale-105"
-                            style="background-color: var(--color-primary);">
-                            Explore Services
-                        </a>
+                    <a href="gallery.html"
+                        class="px-8 py-4 rounded-full font-semibold border border-white/20 text-white backdrop-blur-xl bg-white/10 hover:bg-white hover:text-black transition-all duration-300">
 
-                        <a href="gallery.html"
-                            class="px-8 py-4 rounded-full font-semibold border transition hover:scale-105"
-                            style="border-color: var(--color-border); color: var(--color-primary-text); background-color: var(--color-card-bg);">
-                            View Gallery
-                        </a>
+                        View Gallery
 
-                    </div>
+                    </a>
 
                 </div>
 
-                <!-- Floating Service Cards -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
-
-                    <!-- Card 1 -->
-                    <div class="p-6 rounded-3xl border shadow-lg hover:-translate-y-2 transition-all duration-300 text-center"
-                        style="background-color: var(--color-card-bg); border-color: var(--color-border);">
-
-                        <div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4"
-                            style="background-color: rgba(192,57,43,0.1);">
-
-                            <i class="fa-solid fa-gears text-3xl text-accent"></i>
-
-                        </div>
-
-                        <h3 class="font-bold text-lg" style="color: var(--color-primary-text);">
-                            Mechanical
-                        </h3>
-
-                        <p class="text-sm mt-2" style="color: var(--color-secondary-text);">
-                            Full internal rebuilds and repairs
-                        </p>
-
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="p-6 rounded-3xl border shadow-lg hover:-translate-y-2 transition-all duration-300 text-center"
-                        style="background-color: var(--color-card-bg); border-color: var(--color-border);">
-
-                        <div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4"
-                            style="background-color: rgba(192,57,43,0.1);">
-
-                            <i class="fa-solid fa-paintbrush text-3xl text-accent"></i>
-
-                        </div>
-
-                        <h3 class="font-bold text-lg" style="color: var(--color-primary-text);">
-                            Custom Paint
-                        </h3>
-
-                        <p class="text-sm mt-2" style="color: var(--color-secondary-text);">
-                            Authentic porcelain color restoration
-                        </p>
-
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="p-6 rounded-3xl border shadow-lg hover:-translate-y-2 transition-all duration-300 text-center"
-                        style="background-color: var(--color-card-bg); border-color: var(--color-border);">
-
-                        <div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4"
-                            style="background-color: rgba(192,57,43,0.1);">
-
-                            <i class="fa-solid fa-bolt text-3xl text-accent"></i>
-
-                        </div>
-
-                        <h3 class="font-bold text-lg" style="color: var(--color-primary-text);">
-                            Electrical
-                        </h3>
-
-                        <p class="text-sm mt-2" style="color: var(--color-secondary-text);">
-                            Safe rewiring and LED upgrades
-                        </p>
-
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="p-6 rounded-3xl border shadow-lg hover:-translate-y-2 transition-all duration-300 text-center"
-                        style="background-color: var(--color-card-bg); border-color: var(--color-border);">
-
-                        <div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4"
-                            style="background-color: rgba(192,57,43,0.1);">
-
-                            <i class="fa-solid fa-truck-fast text-3xl text-accent"></i>
-
-                        </div>
-
-                        <h3 class="font-bold text-lg" style="color: var(--color-primary-text);">
-                            Delivery
-                        </h3>
-
-                        <p class="text-sm mt-2" style="color: var(--color-secondary-text);">
-                            Worldwide secure shipping support
-                        </p>
-
-                    </div>
-
-                </div>
+            
 
             </div>
 
-        </section>
+            <!-- RIGHT SIDE IMAGE -->
+            <div class="relative hidden lg:flex justify-center">
+
+                <!-- Main Card -->
+                <div
+                    class="relative w-[420px] h-[520px] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl backdrop-blur-xl bg-white/10">
+
+                    <img src="/assets/ww.jpeg"
+                        class="w-full h-full object-cover"
+                        alt="Vintage Machine">
+
+                    <!-- Overlay -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent">
+                    </div>
+
+                    <!-- Floating Label -->
+                    <div
+                        class="absolute bottom-6 left-6 right-6 backdrop-blur-xl bg-black/40 border border-white/10 rounded-2xl p-5">
+
+                        <div class="flex items-center justify-between">
+
+                            <div>
+                                <p class="text-white/60 text-sm">Featured Restoration</p>
+                                <h3 class="text-white text-2xl font-bold mt-1">
+                                    Coca-Cola Cavalier 1960
+                                </h3>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Floating Small Card -->
+              
+
+        </div>
+
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+
+        <div
+            class="w-10 h-16 rounded-full border border-white/30 flex justify-center pt-3">
+
+            <div
+                class="w-2 h-2 rounded-full bg-white animate-bounce">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
         <!-- ============================================ -->
         <!-- SECTION 2: PROCESS STRIP – HOW IT WORKS      -->
         <!-- ============================================ -->
